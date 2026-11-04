@@ -300,58 +300,36 @@
         <header class="section-head reveal">
           <p class="eyebrow">03 / Projects &amp; Lab</p>
           <h2 class="section-title" id="projects-title">Projects &amp; lab work</h2>
-          <p class="section-intro">Hands-on work from my job and my homelab, written up with the problem, the approach and what I learned.</p>
+          <p class="section-intro">Outside work I run a Proxmox homelab to build hands-on experience with virtualisation, networking, Active Directory and monitoring.</p>
         </header>
 
-        <div class="card-grid projects-grid">
-          <!-- Project: Proxmox homelab -->
-          <article class="card project-card reveal" data-tilt>
+        <!-- Featured project: one wide card.
+             To show several projects instead, see "Adding a new project" in README.md. -->
+        <article class="card project-card project-featured reveal" data-tilt data-tilt-max="1.5">
+          <div class="featured-main">
             <div class="project-top">
               <div class="card-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="18" height="7" rx="1.5"/><path d="M7 6.5h.01M7 17.5h.01"/></svg>
               </div>
-              <span class="project-kind">Homelab</span>
+              <span class="project-kind">Homelab · Since July 2026</span>
             </div>
             <h3><a class="card-link" href="projects/proxmox-homelab.html">Proxmox homelab build</a></h3>
-            <p>A Proxmox VE homelab with a VLAN-isolated Active Directory lab, self-hosted services, and Prometheus and Grafana monitoring with alerts. Started from zero Linux experience.</p>
+            <p>A Proxmox VE homelab I started with no Linux command-line experience. It now runs an Active Directory lab on an isolated VLAN, a set of self-hosted services, and Prometheus and Grafana monitoring with alerts to Discord.</p>
             <ul class="tags" aria-label="Technologies">
-              <li>Proxmox VE</li><li>Active Directory</li><li>Group Policy</li><li>VLANs</li><li>Grafana</li>
+              <li>Proxmox VE</li><li>Active Directory</li><li>Group Policy</li><li>VLANs</li><li>Pi-hole</li><li>Prometheus</li><li>Grafana</li>
             </ul>
-            <span class="read-more" aria-hidden="true">Read more <span class="arrow">&rarr;</span></span>
-          </article>
+            <span class="read-more" aria-hidden="true">Read the write-up <span class="arrow">&rarr;</span></span>
+          </div>
 
-          <!-- Project: Exchange Online mailbox quota -->
-          <article class="card project-card reveal" data-tilt>
-            <div class="project-top">
-              <div class="card-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
-              </div>
-              <span class="project-kind">Case study</span>
-            </div>
-            <h3><a class="card-link" href="projects/exchange-mailbox-quota.html">Fixing mailbox quota bounce-backs</a></h3>
-            <p>A user's emails were bouncing back with NDRs as their mailbox hit its limit. I traced it to a licence mismatch capping the quota, corrected it and set up archiving.</p>
-            <ul class="tags" aria-label="Technologies">
-              <li>Exchange Online</li><li>Microsoft 365</li><li>Licensing</li><li>PowerShell</li>
-            </ul>
-            <span class="read-more" aria-hidden="true">Read more <span class="arrow">&rarr;</span></span>
-          </article>
-
-          <!-- Project: Firewall / routing troubleshooting -->
-          <article class="card project-card reveal" data-tilt>
-            <div class="project-top">
-              <div class="card-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/><path d="M11 8v3l2 2"/></svg>
-              </div>
-              <span class="project-kind">Troubleshooting</span>
-            </div>
-            <h3><a class="card-link" href="projects/firewall-routing-case-study.html">The firewall that wasn't the problem</a></h3>
-            <p>A monitoring server couldn't reach an isolated VLAN, and nothing showed in the firewall logs. After ruling the firewall out step by step, the real cause was a missing route on the source host.</p>
-            <ul class="tags" aria-label="Technologies">
-              <li>Networking</li><li>VLANs</li><li>Firewall</li><li>Linux</li><li>Troubleshooting</li>
-            </ul>
-            <span class="read-more" aria-hidden="true">Read more <span class="arrow">&rarr;</span></span>
-          </article>
-        </div>
+          <!-- At-a-glance specs (keep in sync with projects/proxmox-homelab.html) -->
+          <dl class="featured-specs">
+            <div><dt>Host</dt><dd><span class="nowrap">HP 290 G1 SFF</span> · <span class="nowrap">i5-8500</span> · <span class="nowrap">32 GB RAM</span></dd></div>
+            <div><dt>Network</dt><dd>Zyxel <span class="nowrap">USG FLEX 200</span> firewall and <span class="nowrap">GS1920-24</span> switch, isolated VLAN for the AD lab</dd></div>
+            <div><dt>AD lab</dt><dd>Domain controller, file server, Windows 11 client for Group Policy testing</dd></div>
+            <div><dt>Services</dt><dd>Pi-hole, Home Assistant, Homarr, Plex</dd></div>
+            <div><dt>Monitoring</dt><dd>Uptime Kuma, Prometheus and Grafana, Discord alerts</dd></div>
+          </dl>
+        </article>
       </div>
     </section>
 
@@ -388,7 +366,7 @@
             <div class="card timeline-card">
               <p class="timeline-date"><time datetime="2026-04">April 2026</time></p>
               <h3>Level 3 Digital Support Technician</h3>
-              <p class="timeline-org">City &amp; Guilds · Achieved with Distinction · April 2026</p>
+              <p class="timeline-org">City &amp; Guilds · Achieved with Distinction</p>
             </div>
           </li>
         </ol>

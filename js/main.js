@@ -257,7 +257,7 @@
   /* 3D tilt on cards */
   var tiltCards = document.querySelectorAll('[data-tilt]');
   if (tiltCards.length) {
-    var MAX_TILT = 5; // degrees
+    var MAX_TILT = 5; // degrees (override per card with data-tilt-max="…")
 
     var setTiltState = function () {
       root.classList.toggle('tilt-enabled', fxEnabled());
@@ -267,6 +267,7 @@
 
     tiltCards.forEach(function (card) {
       var frame = null;
+      var max = parseFloat(card.getAttribute('data-tilt-max')) || MAX_TILT;
       card.addEventListener('pointermove', function (e) {
         if (!root.classList.contains('tilt-enabled') || e.pointerType !== 'mouse') return;
         var x = e.clientX, y = e.clientY;
@@ -275,8 +276,8 @@
           var r = card.getBoundingClientRect();
           var px = (x - r.left) / r.width;  // 0 → 1
           var py = (y - r.top) / r.height;  // 0 → 1
-          card.style.setProperty('--ry', ((px - 0.5) * 2 * MAX_TILT).toFixed(2) + 'deg');
-          card.style.setProperty('--rx', ((0.5 - py) * 2 * MAX_TILT).toFixed(2) + 'deg');
+          card.style.setProperty('--ry', ((px - 0.5) * 2 * max).toFixed(2) + 'deg');
+          card.style.setProperty('--rx', ((0.5 - py) * 2 * max).toFixed(2) + 'deg');
           card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
           card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
           card.classList.add('is-tilting');
