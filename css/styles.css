@@ -735,8 +735,6 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 0.8rem;
 }
 .cert-badge-alt { background: linear-gradient(145deg, #f59e0b, var(--accent)); }
-.cert-badge-pending { background: var(--border-strong); }
-.cert-badge-pending span { color: var(--text-muted); }
 
 .cert-issuer {
   font-size: 0.9rem;
@@ -744,22 +742,10 @@ img { max-width: 100%; height: auto; display: block; }
   margin-bottom: 0.6rem;
 }
 .cert-issuer:last-child { margin-bottom: 0; }
-.cert-note { font-size: 0.85rem; }
+.cert-card-linked .read-more { display: inline-block; margin-top: 0.15rem; }
+.cert-card-linked:hover { border-color: var(--accent); }
+.cert-card-linked:hover .read-more .arrow { transform: translateX(4px); }
 
-.cert-card-pending {
-  border-style: dashed;
-  border-color: var(--border-strong);
-  background: transparent;
-  box-shadow: none;
-}
-.cert-status {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--accent);
-  margin-bottom: 0.35rem;
-}
 
 /* 8f. Contact -------------------------------------------------------------- */
 .contact-card {

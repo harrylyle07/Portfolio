@@ -44,7 +44,7 @@ Each section is wrapped in a big comment banner such as `<!-- 3. SKILLS -->`.
 | **3. Skills** | One `<article class="card skill-card">` per group. Add or remove `<li>` items. The **Networking & Security** and **Scripting** items are suggestions, so keep only what you're happy to talk about in an interview. |
 | **4. Projects** | One `<article class="card project-card">` per project (see *Adding a new project* below). Remove the `<span class="badge-placeholder">Placeholder</span>` once a card is real. |
 | **5. Experience** | One `<li class="timeline-item">` per entry, newest first. Fill in company name, dates and training provider. |
-| **6. Certifications** | One `<article class="card cert-card">` per cert. Add your Credly link where marked. To use your real Credly badge image, replace the `<div class="cert-badge">…</div>` with `<img src="assets/your-badge.png" alt="Microsoft 365 Certified: Fundamentals badge" width="72" height="72">`. The dashed **In progress** card is for your next cert. |
+| **6. Certifications** | One `<article class="card cert-card">` per cert. To make a whole card link to a credential (as the MS-900 card does), add the `cert-card-linked` class and put the link on the heading with `class="card-link"`. To use a real badge image, replace the `<div class="cert-badge">…</div>` with `<img src="assets/your-badge.png" alt="Microsoft 365 Certified: Fundamentals badge" width="72" height="72">`. |
 | **7. Contact** | LinkedIn button (contact is LinkedIn only: no email, phone or form). |
 | **8. Footer** | Links. The year updates automatically. |
 
