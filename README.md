@@ -10,7 +10,8 @@ A single-page personal portfolio built with plain **HTML, CSS and vanilla JavaSc
 ├── css/
 │   └── styles.css              # All styles. Colours/theme tokens are at the top
 ├── js/
-│   └── main.js                 # Theme toggle, sticky header, mobile menu, scroll animations
+│   └── main.js                 # Theme, header, mobile menu, scroll animations, typing,
+│                               # count-up stats, tech strip, card tilt, hero network canvas
 ├── projects/
 │   ├── _template.html          # Blank write-up template: copy this for new projects
 │   ├── proxmox-homelab.html    # Homelab write-up (structure done, details to fill in)
@@ -37,8 +38,9 @@ Each section is wrapped in a big comment banner such as `<!-- 3. SKILLS -->`.
 | Section | What to edit |
 |---|---|
 | **Meta / SEO** (`<head>`) | Title, description, Open Graph tags. If you use a custom domain, replace `https://harrylyle07.github.io/Portfolio/` everywhere. |
-| **1. Hero** | Heading, one-line pitch, the "Open to 2nd line support roles" status pill, and the tech tags. |
-| **2. About** | The three paragraphs and the four "quick facts" tiles. |
+| **1. Hero** | Heading, one-line pitch and the "Open to 2nd line support roles" status pill. **Typing phrases:** edit the `data-phrases` list *and* the matching `<span>`s inside `.typed-sizer` (these reserve space so the layout doesn't jump). **Stats row:** numbers inside `<span data-count="2">2</span>` count up when scrolled into view. Replace the `[X]` client-tenants placeholder with e.g. `<span data-count="15">15</span>`, or delete that `<li>`. |
+| **Technology strip** | The `<ul class="marquee-list">` just after the hero. Add or remove `<li>` items; the script duplicates them for the seamless loop. |
+| **2. About** | The three paragraphs. |
 | **3. Skills** | One `<article class="card skill-card">` per group. Add or remove `<li>` items. The **Networking & Security** and **Scripting** items are suggestions, so keep only what you're happy to talk about in an interview. |
 | **4. Projects** | One `<article class="card project-card">` per project (see *Adding a new project* below). Remove the `<span class="badge-placeholder">Placeholder</span>` once a card is real. |
 | **5. Experience** | One `<li class="timeline-item">` per entry, newest first. Fill in company name, dates and training provider. |
@@ -79,7 +81,17 @@ Then visit <http://localhost:8000>.
 - Dark theme by default with a light mode toggle (choice is saved in the browser)
 - Sticky header that shrinks on scroll; hamburger menu on mobile (closes on link click, outside click or <kbd>Esc</kbd>)
 - Active section highlighted in the nav
-- Subtle fade-in on scroll, all animation disabled when the visitor has *reduce motion* turned on
+- Staggered fade/slide-in for sections and cards as they scroll into view
+- Hero: animated network-node canvas that reacts gently to the mouse, a typing effect cycling through job titles, and count-up stats
+- Slow, infinite technology strip that pauses on hover
+- Subtle 3D tilt with a soft highlight on skill and project cards
+
+### Motion and performance
+
+- **Reduced motion:** if the visitor has *reduce motion* turned on, everything is static. There's no canvas, typing, counting, tilt, scrolling strip (it shows as a wrapped list) or fade-ins.
+- **Phones and tablets:** the canvas and card tilt only run on screens wider than 820px with a mouse. Touch devices get the static grid background instead.
+- The canvas pauses when the hero is scrolled off screen or the tab is hidden, and is capped at 80 nodes.
+- To tone things down, edit the constants in `js/main.js`: `MAX_TILT` (degrees), `LINK_DIST` / `MOUSE_DIST` (network), the typing delays, and the strip speed (`/ 35` = pixels per second).
 - Accessible: semantic HTML, skip link, visible focus styles, ARIA labels on icon buttons, good colour contrast in both themes
 - Responsive layouts for phone, tablet and desktop
 - SEO and Open Graph meta tags for link previews
