@@ -1,13 +1,13 @@
 /* ==========================================================================
    Harry – Portfolio scripts (vanilla JS, no dependencies)
-   - Theme toggle (remembers choice)
-   - Sticky header shrink on scroll
-   - Mobile navigation menu
-   - Active nav link highlighting
-   - Staggered fade-in on scroll
-   - Hero typing effect and count-up stats
+   - Theme toggle with an animated sweep (View Transitions API, with fallback)
+   - Scroll progress bar, sticky header state, back-to-top button
+   - Mobile navigation menu, active nav link highlighting
+   - Staggered fade-in on scroll, count-up stats, typing effect
    - Infinite technology strip
-   - Card tilt and hero network canvas (desktop + mouse only)
+   - Card glow border + 3D tilt, hero network canvas (desktop + mouse only)
+   - Experience timeline that draws itself on scroll
+   - Terminal-style build log on the homelab page
    - Footer year
    All motion is skipped when prefers-reduced-motion is set.
    ========================================================================== */
@@ -15,10 +15,23 @@
   'use strict';
 
   var root = document.documentElement;
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var reduceMotion = reduceMotionQuery.matches;
+  reduceMotionQuery.addEventListener('change', function (mq) { reduceMotion = mq.matches; });
+
+  /* Heavy effects only on a desktop-sized screen with a real mouse */
+  var fxQuery = window.matchMedia('(min-width: 821px) and (hover: hover) and (pointer: fine)');
+  var fxEnabled = function () { return fxQuery.matches && !reduceMotion; };
+  var setFxState = function () { root.classList.toggle('fx', fxEnabled()); };
+  setFxState();
+  fxQuery.addEventListener('change', setFxState);
+  reduceMotionQuery.addEventListener('change', setFxState);
+
+  var clamp = function (v, min, max) { return Math.max(min, Math.min(max, v)); };
 
   /* ---- Theme toggle ---------------------------------------------------- */
   var themeBtn = document.querySelector('.theme-toggle');
+  var THEME_COLOURS = { dark: '#090d16', light: '#f6f8fb' };
 
   function currentTheme() {
     return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
@@ -29,26 +42,95 @@
     var next = currentTheme() === 'dark' ? 'light' : 'dark';
     themeBtn.setAttribute('aria-label', 'Switch to ' + next + ' mode');
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', currentTheme() === 'dark' ? '#0b1120' : '#f8fafc');
+    if (meta) meta.setAttribute('content', THEME_COLOURS[currentTheme()]);
+  }
+
+  function applyTheme(next) {
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) { /* storage unavailable */ }
+    updateThemeButton();
   }
 
   if (themeBtn) {
     updateThemeButton();
     themeBtn.addEventListener('click', function () {
       var next = currentTheme() === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('theme', next); } catch (e) { /* storage unavailable */ }
-      updateThemeButton();
+
+      // Animated circular sweep from the button, where supported
+      if (!document.startViewTransition || reduceMotion) { applyTheme(next); return; }
+
+      var r = themeBtn.getBoundingClientRect();
+      var x = r.left + r.width / 2;
+      var y = r.top + r.height / 2;
+      var radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+
+      root.classList.add('theme-switching');
+      var transition = document.startViewTransition(function () { applyTheme(next); });
+      transition.ready.then(function () {
+        root.animate(
+          { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + radius + 'px at ' + x + 'px ' + y + 'px)'] },
+          { duration: 600, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', pseudoElement: '::view-transition-new(root)' }
+        );
+      }).catch(function () {});
+      transition.finished.then(function () { root.classList.remove('theme-switching'); })
+        .catch(function () { root.classList.remove('theme-switching'); });
     });
   }
 
-  /* ---- Sticky header shrink ------------------------------------------- */
+  /* ---- Scroll-driven bits: header, progress bar, back-to-top, timeline -- */
   var header = document.querySelector('.site-header');
-  function onScroll() {
-    if (header) header.classList.toggle('is-scrolled', window.scrollY > 16);
+  var progressBar = document.querySelector('.scroll-progress');
+  var backToTop = document.querySelector('.back-to-top');
+  var timelines = document.querySelectorAll('.timeline');
+  var scrollTicking = false;
+
+  function updateTimelines() {
+    var vh = window.innerHeight;
+    var reach = vh * 0.78; // the line is "drawn" up to this point on screen
+    timelines.forEach(function (tl) {
+      var r = tl.getBoundingClientRect();
+      var progress = reduceMotion ? 1 : clamp((reach - r.top) / r.height, 0, 1);
+      // Only ever grows, so scrolling back up doesn't "undraw" the line
+      var drawn = parseFloat(tl.style.getPropertyValue('--draw')) || 0;
+      if (progress > drawn) tl.style.setProperty('--draw', progress.toFixed(3));
+      tl.querySelectorAll('.timeline-item').forEach(function (item) {
+        var ir = item.getBoundingClientRect();
+        if (reduceMotion || ir.top + 36 < reach) item.classList.add('is-reached');
+      });
+    });
   }
+
+  function onScroll() {
+    var y = window.scrollY || 0;
+    if (header) header.classList.toggle('is-scrolled', y > 8);
+    if (progressBar) {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.transform = 'scaleX(' + (max > 0 ? clamp(y / max, 0, 1) : 0).toFixed(4) + ')';
+    }
+    if (backToTop) backToTop.classList.toggle('is-visible', y > 600);
+    if (timelines.length) updateTimelines();
+    scrollTicking = false;
+  }
+
+  function requestScroll() {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(onScroll);
+  }
+
   onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', requestScroll, { passive: true });
+  window.addEventListener('resize', requestScroll);
+  window.addEventListener('load', requestScroll);
+
+  if (backToTop) {
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      var target = document.getElementById('top') || document.body;
+      target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+    });
+  }
 
   /* ---- Mobile navigation ---------------------------------------------- */
   var navToggle = document.querySelector('.nav-toggle');
@@ -65,57 +147,65 @@
     navToggle.addEventListener('click', function () {
       setMenu(navToggle.getAttribute('aria-expanded') !== 'true');
     });
-
-    // Close after choosing a link
     navMenu.addEventListener('click', function (e) {
       if (e.target.closest('a')) setMenu(false);
     });
-
-    // Close on Escape and return focus to the toggle
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
         setMenu(false);
         navToggle.focus();
       }
     });
-
-    // Close when clicking outside the header
     document.addEventListener('click', function (e) {
       if (header && !header.contains(e.target)) setMenu(false);
     });
-
-    // Reset if resized up to desktop
     window.matchMedia('(min-width: 821px)').addEventListener('change', function (mq) {
       if (mq.matches) setMenu(false);
     });
   }
 
   /* ---- Active nav link ------------------------------------------------ */
-  var navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
-  if ('IntersectionObserver' in window && navLinks.length) {
-    var linkFor = {};
-    navLinks.forEach(function (a) { linkFor[a.getAttribute('href').slice(1)] = a; });
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-menu a[href^="#"]'));
+  if (navLinks.length) {
+    var navSections = navLinks
+      .map(function (a) { return { link: a, el: document.getElementById(a.getAttribute('href').slice(1)) }; })
+      .filter(function (s) { return s.el; });
 
-    var sectionObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        navLinks.forEach(function (a) {
-          a.classList.remove('is-active');
-          a.removeAttribute('aria-current');
+    var activeLink = null;
+    var navTicking = false;
+    var updateActiveNav = function () {
+      navTicking = false;
+      var y = window.scrollY || 0;
+      var line = y + window.innerHeight * 0.35;
+      var atBottom = y + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      var current = null;
+      if (atBottom) {
+        current = navSections[navSections.length - 1];
+      } else {
+        navSections.forEach(function (s) {
+          if (s.el.offsetTop <= line) current = s;
         });
-        var link = linkFor[entry.target.id];
-        if (link) {
-          link.classList.add('is-active');
-          link.setAttribute('aria-current', 'true');
-        }
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-
-    document.querySelectorAll('main section[id]').forEach(function (s) { sectionObserver.observe(s); });
+        // Above the first section (i.e. in the hero): no active link
+        if (current && y < navSections[0].el.offsetTop - window.innerHeight * 0.6) current = null;
+      }
+      var link = current ? current.link : null;
+      if (link === activeLink) return;
+      if (activeLink) { activeLink.classList.remove('is-active'); activeLink.removeAttribute('aria-current'); }
+      if (link) { link.classList.add('is-active'); link.setAttribute('aria-current', 'true'); }
+      activeLink = link;
+    };
+    var requestNav = function () {
+      if (navTicking) return;
+      navTicking = true;
+      requestAnimationFrame(updateActiveNav);
+    };
+    updateActiveNav();
+    window.addEventListener('scroll', requestNav, { passive: true });
+    window.addEventListener('resize', requestNav);
+    window.addEventListener('load', requestNav);
   }
 
   /* ---- Fade-in on scroll (staggered) --------------------------------- */
-  // Elements that enter the viewport together are revealed one after another.
   var revealEls = document.querySelectorAll('.reveal');
   if (reduceMotion || !('IntersectionObserver' in window)) {
     revealEls.forEach(function (el) { el.classList.add('is-visible'); });
@@ -133,7 +223,6 @@
         obs.unobserve(el);
         el.style.transitionDelay = Math.min(i * 90, 450) + 'ms';
         el.classList.add('is-visible');
-        // Clear the delay once revealed so hover effects aren't delayed
         el.addEventListener('transitionend', function clear(ev) {
           if (ev.target !== el) return;
           el.style.transitionDelay = '';
@@ -161,7 +250,6 @@
       var tick = function () {
         var phrase = phrases[phraseIndex];
         var delay;
-
         if (deleting) {
           charIndex--;
           delay = 35;
@@ -173,20 +261,17 @@
           }
         } else {
           charIndex++;
-          delay = 65 + Math.random() * 45; // slight variation feels more natural
+          delay = 65 + Math.random() * 45;
           if (charIndex >= phrase.length) {
             charIndex = phrase.length;
             deleting = true;
-            delay = 2600; // hold the finished phrase
+            delay = 2600;
           }
         }
-
         typed.textContent = phrases[phraseIndex].slice(0, charIndex);
         wrap.classList.toggle('is-typing', delay < 400);
         setTimeout(tick, delay);
       };
-
-      // Show the first phrase for a moment before cycling
       setTimeout(tick, 3000);
     }
   }
@@ -202,7 +287,7 @@
       var step = function (now) {
         if (startTime === null) startTime = now;
         var t = Math.min((now - startTime) / duration, 1);
-        var eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+        var eased = 1 - Math.pow(1 - t, 3);
         el.textContent = (target * eased).toFixed(decimals);
         if (t < 1) requestAnimationFrame(step);
       };
@@ -213,7 +298,6 @@
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         obs.unobserve(entry.target);
-        // Wait for the stats row to fade in first
         setTimeout(function () { runCounter(entry.target); }, 500);
       });
     }, { threshold: 0.6 });
@@ -230,9 +314,8 @@
     var track = marquee.querySelector('.marquee-track');
     var list = marquee.querySelector('.marquee-list');
     var originals = Array.prototype.slice.call(list.children);
-    marquee.classList.add('is-animated'); // switch to the single-row layout before measuring
+    marquee.classList.add('is-animated');
 
-    // Repeat items until one list is wider than the screen, so the loop never shows a gap
     var guard = 0;
     while (list.scrollWidth < window.innerWidth && guard++ < 10) {
       originals.forEach(function (li) {
@@ -241,50 +324,41 @@
         list.appendChild(c);
       });
     }
-    // Second copy of the list for a seamless -50% loop (hidden from screen readers)
     var copy = list.cloneNode(true);
     copy.setAttribute('aria-hidden', 'true');
     track.appendChild(copy);
-
-    // Constant, slow speed regardless of how many items there are
     marquee.style.setProperty('--marquee-duration', Math.round(list.scrollWidth / 35) + 's');
   }
 
-  /* ---- Heavy effects: desktop with a mouse only ----------------------- */
-  var fxQuery = window.matchMedia('(min-width: 821px) and (hover: hover) and (pointer: fine)');
-  var fxEnabled = function () { return fxQuery.matches && !reduceMotion; };
+  /* ---- Card glow border + 3D tilt (desktop with a mouse) --------------- */
+  var cards = document.querySelectorAll('.card');
+  if (cards.length) {
+    var MAX_TILT = 4; // degrees (override per card with data-tilt-max="…")
+    var glowFrame = null;
 
-  /* 3D tilt on cards */
-  var tiltCards = document.querySelectorAll('[data-tilt]');
-  if (tiltCards.length) {
-    var MAX_TILT = 5; // degrees (override per card with data-tilt-max="…")
-
-    var setTiltState = function () {
-      root.classList.toggle('tilt-enabled', fxEnabled());
-    };
-    setTiltState();
-    fxQuery.addEventListener('change', setTiltState);
-
-    tiltCards.forEach(function (card) {
-      var frame = null;
-      var max = parseFloat(card.getAttribute('data-tilt-max')) || MAX_TILT;
-      card.addEventListener('pointermove', function (e) {
-        if (!root.classList.contains('tilt-enabled') || e.pointerType !== 'mouse') return;
-        var x = e.clientX, y = e.clientY;
-        if (frame) cancelAnimationFrame(frame);
-        frame = requestAnimationFrame(function () {
-          var r = card.getBoundingClientRect();
-          var px = (x - r.left) / r.width;  // 0 → 1
-          var py = (y - r.top) / r.height;  // 0 → 1
+    document.addEventListener('pointermove', function (e) {
+      if (!root.classList.contains('fx') || e.pointerType !== 'mouse') return;
+      var card = e.target.closest ? e.target.closest('.card') : null;
+      if (!card) return;
+      var x = e.clientX, y = e.clientY;
+      if (glowFrame) cancelAnimationFrame(glowFrame);
+      glowFrame = requestAnimationFrame(function () {
+        var r = card.getBoundingClientRect();
+        var px = (x - r.left) / r.width;
+        var py = (y - r.top) / r.height;
+        card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+        if (card.hasAttribute('data-tilt')) {
+          var max = parseFloat(card.getAttribute('data-tilt-max')) || MAX_TILT;
           card.style.setProperty('--ry', ((px - 0.5) * 2 * max).toFixed(2) + 'deg');
           card.style.setProperty('--rx', ((0.5 - py) * 2 * max).toFixed(2) + 'deg');
-          card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
-          card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
           card.classList.add('is-tilting');
-        });
+        }
       });
+    }, { passive: true });
+
+    cards.forEach(function (card) {
       card.addEventListener('pointerleave', function () {
-        if (frame) cancelAnimationFrame(frame);
         card.classList.remove('is-tilting');
         card.style.setProperty('--rx', '0deg');
         card.style.setProperty('--ry', '0deg');
@@ -292,18 +366,18 @@
     });
   }
 
-  /* Hero network background (canvas) */
+  /* ---- Hero network background (canvas) ------------------------------- */
   var hero = document.querySelector('.hero');
   var canvas = document.querySelector('.hero-network');
   if (hero && canvas && canvas.getContext) {
     var ctx = canvas.getContext('2d');
     var nodes = [];
     var width = 0, height = 0, dpr = 1;
-    var mouse = { x: -9999, y: -9999, active: false };
+    var mouse = { x: -9999, y: -9999, active: false, sx: -9999, sy: -9999 };
     var running = false, heroVisible = true, rafId = null;
     var rgb = '45, 212, 191';
-    var LINK_DIST = 140;   // px: max distance for a connecting line
-    var MOUSE_DIST = 180;  // px: radius the cursor affects
+    var LINK_DIST = 150;   // px: max distance for a connecting line
+    var MOUSE_DIST = 200;  // px: radius the cursor affects
 
     var readColour = function () {
       var v = getComputedStyle(root).getPropertyValue('--network-rgb').trim();
@@ -318,8 +392,7 @@
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // Density scales with area, capped to keep it light
-      var count = Math.min(80, Math.round((width * height) / 16000));
+      var count = Math.min(90, Math.round((width * height) / 15000));
       while (nodes.length < count) {
         nodes.push({
           x: Math.random() * width,
@@ -335,12 +408,17 @@
     var draw = function () {
       ctx.clearRect(0, 0, width, height);
 
+      // Smoothed cursor position so the glow trails gently rather than snapping
+      if (mouse.active) {
+        if (mouse.sx < -999) { mouse.sx = mouse.x; mouse.sy = mouse.y; }
+        mouse.sx += (mouse.x - mouse.sx) * 0.12;
+        mouse.sy += (mouse.y - mouse.sy) * 0.12;
+      }
+
       for (var i = 0; i < nodes.length; i++) {
         var n = nodes[i];
-
-        // Gentle push away from the cursor
         if (mouse.active) {
-          var mdx = n.x - mouse.x, mdy = n.y - mouse.y;
+          var mdx = n.x - mouse.sx, mdy = n.y - mouse.sy;
           var md = Math.sqrt(mdx * mdx + mdy * mdy);
           if (md < MOUSE_DIST && md > 0.1) {
             var force = (1 - md / MOUSE_DIST) * 0.02;
@@ -348,19 +426,23 @@
             n.vy += (mdy / md) * force;
           }
         }
-
-        // Drift, with light damping back towards a slow cruising speed
         n.vx *= 0.99; n.vy *= 0.99;
         var speed = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
         if (speed < 0.08) { n.vx *= 1.05; n.vy *= 1.05; }
         n.x += n.vx; n.y += n.vy;
-
-        // Wrap around edges
         if (n.x < -20) n.x = width + 20; else if (n.x > width + 20) n.x = -20;
         if (n.y < -20) n.y = height + 20; else if (n.y > height + 20) n.y = -20;
       }
 
-      // Lines between nearby nodes
+      // Soft glow that follows the cursor
+      if (mouse.active) {
+        var halo = ctx.createRadialGradient(mouse.sx, mouse.sy, 0, mouse.sx, mouse.sy, MOUSE_DIST * 1.3);
+        halo.addColorStop(0, 'rgba(' + rgb + ',0.14)');
+        halo.addColorStop(1, 'rgba(' + rgb + ',0)');
+        ctx.fillStyle = halo;
+        ctx.fillRect(mouse.sx - MOUSE_DIST * 1.3, mouse.sy - MOUSE_DIST * 1.3, MOUSE_DIST * 2.6, MOUSE_DIST * 2.6);
+      }
+
       ctx.lineWidth = 1;
       for (var a = 0; a < nodes.length; a++) {
         for (var b = a + 1; b < nodes.length; b++) {
@@ -375,25 +457,30 @@
             ctx.stroke();
           }
         }
-        // Lines to the cursor
         if (mouse.active) {
-          var cx = nodes[a].x - mouse.x, cy = nodes[a].y - mouse.y;
+          var cx = nodes[a].x - mouse.sx, cy = nodes[a].y - mouse.sy;
           var cd = Math.sqrt(cx * cx + cy * cy);
           if (cd < MOUSE_DIST) {
-            ctx.strokeStyle = 'rgba(' + rgb + ',' + ((1 - cd / MOUSE_DIST) * 0.3).toFixed(3) + ')';
+            ctx.strokeStyle = 'rgba(' + rgb + ',' + ((1 - cd / MOUSE_DIST) * 0.35).toFixed(3) + ')';
             ctx.beginPath();
             ctx.moveTo(nodes[a].x, nodes[a].y);
-            ctx.lineTo(mouse.x, mouse.y);
+            ctx.lineTo(mouse.sx, mouse.sy);
             ctx.stroke();
           }
         }
       }
 
-      // Dots
-      ctx.fillStyle = 'rgba(' + rgb + ',0.55)';
       for (var k = 0; k < nodes.length; k++) {
+        var node = nodes[k];
+        var bright = 0.5;
+        if (mouse.active) {
+          var ndx = node.x - mouse.sx, ndy = node.y - mouse.sy;
+          var nd = Math.sqrt(ndx * ndx + ndy * ndy);
+          if (nd < MOUSE_DIST) bright += (1 - nd / MOUSE_DIST) * 0.5;
+        }
+        ctx.fillStyle = 'rgba(' + rgb + ',' + bright.toFixed(2) + ')';
         ctx.beginPath();
-        ctx.arc(nodes[k].x, nodes[k].y, nodes[k].r, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
         ctx.fill();
       }
 
@@ -425,6 +512,7 @@
 
     setNetworkState();
     fxQuery.addEventListener('change', setNetworkState);
+    reduceMotionQuery.addEventListener('change', setNetworkState);
 
     var resizeTimer;
     window.addEventListener('resize', function () {
@@ -433,14 +521,14 @@
     });
 
     hero.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
       var r = hero.getBoundingClientRect();
       mouse.x = e.clientX - r.left;
       mouse.y = e.clientY - r.top;
       mouse.active = true;
     });
-    hero.addEventListener('pointerleave', function () { mouse.active = false; });
+    hero.addEventListener('pointerleave', function () { mouse.active = false; mouse.sx = mouse.sy = -9999; });
 
-    // Only animate while the hero is on screen and the tab is visible
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         heroVisible = entries[0].isIntersecting;
@@ -450,10 +538,52 @@
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) stop(); else start();
     });
-
-    // Pick up the new colour when the theme changes
     new MutationObserver(readColour).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   }
+
+  /* ---- Terminal-style build log (homelab page) ------------------------ */
+  var buildLogs = document.querySelectorAll('.build-log');
+  if (buildLogs.length) {
+    var runLog = function (log) {
+      var entries = log.querySelectorAll('.log-entry');
+      entries.forEach(function (entry, i) {
+        setTimeout(function () { entry.classList.add('is-done'); }, 350 + i * 420);
+      });
+      setTimeout(function () { log.classList.add('is-complete'); }, 350 + entries.length * 420 + 150);
+    };
+
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      buildLogs.forEach(function (log) {
+        log.querySelectorAll('.log-entry').forEach(function (e) { e.classList.add('is-done'); });
+        log.classList.add('is-complete');
+      });
+    } else {
+      buildLogs.forEach(function (log) { log.classList.add('is-armed'); });
+      var logObserver = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          obs.unobserve(entry.target);
+          runLog(entry.target);
+        });
+      }, { threshold: 0.15 });
+      buildLogs.forEach(function (log) { logObserver.observe(log); });
+    }
+  }
+
+  /* ---- 404 page: show the path that was requested --------------------- */
+  var missingPath = document.querySelector('[data-missing-path]');
+  if (missingPath) {
+    var path = window.location.pathname || '/';
+    missingPath.textContent = path.length > 60 ? path.slice(0, 57) + '…' : path;
+  }
+
+  /* ---- Printing: make sure nothing is mid-animation on paper ---------- */
+  window.addEventListener('beforeprint', function () {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+    document.querySelectorAll('[data-count]').forEach(function (el) { el.textContent = el.getAttribute('data-count'); });
+    document.querySelectorAll('.log-entry').forEach(function (el) { el.classList.add('is-done'); });
+    document.querySelectorAll('.build-log').forEach(function (el) { el.classList.add('is-complete'); });
+  });
 
   /* ---- Footer year ---------------------------------------------------- */
   var year = String(new Date().getFullYear());

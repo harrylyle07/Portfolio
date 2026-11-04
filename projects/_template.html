@@ -8,32 +8,44 @@
        PROJECT WRITE-UP TEMPLATE
        How to use:
          1. Copy this file and rename it, e.g. projects/my-new-project.html
-         2. Update the <title>, description and og: tags below
+         2. Update the <title>, description, canonical and og: tags below
          3. Fill in each section in the ARTICLE block
          4. Add a card for it in the Projects section of index.html
+            and a <url> entry in sitemap.xml
        Delete any section you don't need.
        ========================================================= -->
   <title>Project title | Harry – Tier I Support Analyst &amp; Dispatcher</title>
   <meta name="description" content="One-sentence summary of this project.">
   <meta name="author" content="Harry">
-  <meta name="theme-color" content="#0b1120">
+  <meta name="theme-color" content="#090d16">
   <meta name="robots" content="noindex"> <!-- Template only: delete this line in your copy -->
+  <link rel="canonical" href="https://harrylyle07.github.io/projects/FILE-NAME.html">
 
   <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Harry – Tier I Support Analyst &amp; Dispatcher">
   <meta property="og:title" content="Project title | Harry – Tier I Support Analyst &amp; Dispatcher">
   <meta property="og:description" content="One-sentence summary of this project.">
-  <meta property="og:url" content="https://harrylyle07.github.io/Portfolio/projects/FILE-NAME.html">
-  <meta property="og:image" content="https://harrylyle07.github.io/Portfolio/assets/og-image.png">
+  <meta property="og:url" content="https://harrylyle07.github.io/projects/FILE-NAME.html">
+  <meta property="og:image" content="https://harrylyle07.github.io/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Harry – Tier I Support Analyst &amp; Dispatcher portfolio">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Project title | Harry">
+  <meta name="twitter:description" content="One-sentence summary of this project.">
+  <meta name="twitter:image" content="https://harrylyle07.github.io/assets/og-image.png">
 
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="../assets/favicon-16.png" sizes="16x16" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <script>
     (function () {
@@ -46,13 +58,15 @@
   </script>
 
   <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/print.css" media="print">
   <script src="../js/main.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
 
   <!-- HEADER (no need to edit) -->
-  <header class="site-header page-header">
+  <header class="site-header page-header" id="top">
     <div class="container header-inner">
       <a class="brand" href="../index.html" aria-label="Harry – home">
         <span class="brand-mark" aria-hidden="true">H</span>
@@ -67,12 +81,13 @@
   </header>
 
   <main id="main" class="article">
+    <div class="article-bg" aria-hidden="true"></div>
     <article class="container">
 
       <!-- =========================================================
            ARTICLE HEADER: title, summary, key facts, tags
            ========================================================= -->
-      <header class="article-head">
+      <header class="article-head reveal">
         <p class="eyebrow">Project write-up</p>
         <h1>Project title</h1>
         <p class="article-lead">One or two sentences: what the problem or goal was and what you achieved.</p>
@@ -93,20 +108,21 @@
            Tip for 2nd line roles: show your reasoning, ownership
            and what you'd do differently, not just the steps.
            Keep client names and identifying details anonymous.
+           Add class="reveal" to anything you want to fade in on scroll.
            ========================================================= -->
       <div class="prose">
-        <h2>Overview</h2>
-        <p>Set the scene. What was the situation, who was affected and why did it matter?</p>
+        <h2 class="reveal">Overview</h2>
+        <p class="reveal">Set the scene. What was the situation, who was affected and why did it matter?</p>
 
-        <h2>Goals</h2>
-        <ul>
+        <h2 class="reveal">Goals</h2>
+        <ul class="reveal">
           <li>What did you set out to achieve?</li>
           <li>Any constraints (time, budget, licensing, downtime)?</li>
         </ul>
 
-        <h2>Approach</h2>
-        <p>Walk through what you did and, importantly, <em>why</em> you made each decision.</p>
-        <ol>
+        <h2 class="reveal">Approach</h2>
+        <p class="reveal">Walk through what you did and, importantly, <em>why</em> you made each decision.</p>
+        <ol class="reveal">
           <li>Step one</li>
           <li>Step two</li>
           <li>Step three</li>
@@ -114,30 +130,41 @@
 
         <!-- Optional: code / commands. Remove if not needed.
              Never paste real tenant names, passwords or keys. -->
-        <pre><code># Example PowerShell
+        <pre class="reveal"><code># Example PowerShell
 Get-Mailbox -ResultSize Unlimited | Select-Object DisplayName, PrimarySmtpAddress</code></pre>
 
+        <!-- Optional: a terminal-style build log (see projects/proxmox-homelab.html for a full example).
+             Each <li class="log-entry"> animates in one after another.
+             <div class="build-log reveal" aria-label="Steps">
+               <div class="build-log-bar" aria-hidden="true"><span class="build-log-dots"><i></i><i></i><i></i></span><span class="build-log-title">harry@homelab: ~ — build log</span></div>
+               <ol class="build-log-lines">
+                 <li class="log-entry"><span class="log-status" aria-hidden="true">[ OK ]</span><div class="log-body"><h3>Step name</h3><p>What happened.</p></div></li>
+               </ol>
+               <p class="log-prompt" aria-hidden="true"><span class="ps">harry@homelab:~$</span><span class="log-cursor"></span></p>
+             </div> -->
+
         <!-- Optional: screenshot. Put images in /assets/projects/ and ALWAYS write alt text.
-             <figure>
-               <img src="../assets/projects/example.png" alt="Describe what the screenshot shows">
+             Add width and height so the layout doesn't shift while it loads.
+             <figure class="reveal">
+               <img src="../assets/projects/example.png" alt="Describe what the screenshot shows" width="1600" height="900" loading="lazy" decoding="async">
                <figcaption>Short caption</figcaption>
              </figure> -->
 
-        <h2>Challenges &amp; how I solved them</h2>
-        <p>What went wrong or was harder than expected, and how did you work through it?</p>
+        <h2 class="reveal">Challenges &amp; how I solved them</h2>
+        <p class="reveal">What went wrong or was harder than expected, and how did you work through it?</p>
 
-        <h2>Outcome</h2>
-        <p>What was the result? Use numbers if you can (e.g. tickets reduced, time saved, devices enrolled).</p>
+        <h2 class="reveal">Outcome</h2>
+        <p class="reveal">What was the result? Use numbers if you can (e.g. tickets reduced, time saved, devices enrolled).</p>
 
-        <h2>What I learned</h2>
-        <div class="callout">
+        <h2 class="reveal">What I learned</h2>
+        <div class="callout reveal">
           <p>Key takeaways, and what you'd do differently next time.</p>
         </div>
       </div>
 
-      <footer class="article-foot">
+      <footer class="article-foot reveal">
         <a class="btn btn-ghost" href="../index.html#projects">&larr; Back to projects</a>
-        <a class="btn btn-primary" href="../index.html#contact">Get in touch</a>
+        <a class="btn btn-primary" href="../index.html#contact">Get in touch <span class="arrow" aria-hidden="true">&rarr;</span></a>
       </footer>
     </article>
   </main>
@@ -152,5 +179,9 @@ Get-Mailbox -ResultSize Unlimited | Select-Object DisplayName, PrimarySmtpAddres
       </ul>
     </div>
   </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
 </body>
 </html>
