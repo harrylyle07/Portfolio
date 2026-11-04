@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Project write-up: based on projects/_template.html -->
-  <title>[Troubleshooting case study title] | Harry – Tier I Support Analyst &amp; Dispatcher</title>
-  <meta name="description" content="Placeholder troubleshooting case study: symptoms, diagnosis, root cause and fix.">
+  <title>The firewall that wasn't the problem | Harry – Tier I Support Analyst &amp; Dispatcher</title>
+  <meta name="description" content="A monitoring server could not reach an isolated VLAN and the firewall logs showed nothing. The real cause was a missing route on the source host.">
   <meta name="author" content="Harry">
   <meta name="theme-color" content="#0b1120">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="[Troubleshooting case study title] | Harry – Tier I Support Analyst &amp; Dispatcher">
-  <meta property="og:description" content="Placeholder troubleshooting case study: symptoms, diagnosis, root cause and fix.">
-  <meta property="og:url" content="https://harrylyle07.github.io/Portfolio/projects/troubleshooting-case-study.html">
+  <meta property="og:title" content="The firewall that wasn't the problem | Harry – Tier I Support Analyst &amp; Dispatcher">
+  <meta property="og:description" content="A monitoring server could not reach an isolated VLAN and the firewall logs showed nothing. The real cause was a missing route on the source host.">
+  <meta property="og:url" content="https://harrylyle07.github.io/Portfolio/projects/firewall-routing-case-study.html">
   <meta property="og:image" content="https://harrylyle07.github.io/Portfolio/assets/og-image.png">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
@@ -65,46 +65,44 @@
            ========================================================= -->
       <header class="article-head">
         <p class="eyebrow">Case study</p>
-        <h1>[Troubleshooting case study title]</h1>
-        <p class="article-lead"><span class="ph">[One or two sentences: the problem and how it was resolved.]</span></p>
+        <h1>The firewall that wasn't the problem</h1>
+        <p class="article-lead">A monitoring server couldn't reach a server on an isolated VLAN, and the firewall logs showed nothing. The firewall got the blame, but the real problem was routing on the source host.</p>
 
         <dl class="article-meta">
-          <div><dt>Type</dt><dd>Troubleshooting case study</dd></div><div><dt>Area</dt><dd><span class="ph">[e.g. Windows / Exchange Online]</span></dd></div><div><dt>Date</dt><dd><span class="ph">[Month Year]</span></dd></div>
+          <div><dt>Type</dt><dd>Troubleshooting case study</dd></div><div><dt>Area</dt><dd>Networking</dd></div>
         </dl>
 
         <ul class="tags" aria-label="Technologies">
-          <li>Windows</li><li>Troubleshooting</li><li>Root cause analysis</li>
+          <li>Networking</li><li>VLANs</li><li>Firewall</li><li>Linux</li><li>Troubleshooting</li>
         </ul>
       </header>
 
-      <p class="notice" role="note"><strong>Placeholder content.</strong> This page is an example structure for a real issue you owned end to end. Keep client and user details anonymous.</p>
-
       <div class="prose">
-        <h2>The problem</h2>
-        <p><span class="ph">[Symptoms as reported, who was affected, and the business impact]</span></p>
+        <h2>Problem</h2>
+        <p>The monitoring server couldn't reach a server on the isolated VLAN, and nothing was showing up in the firewall logs.</p>
 
-        <h2>Initial triage</h2>
+        <h2>What I did</h2>
+        <p>I ruled out the firewall step by step:</p>
         <ul>
-          <li><span class="ph">[What you checked first and why]</span></li>
-          <li><span class="ph">[What you ruled out]</span></li>
+          <li>Rules</li>
+          <li>Zones</li>
+          <li>Logging</li>
+          <li>Packet captures</li>
+          <li>Even a factory reset</li>
+        </ul>
+        <p>With the firewall ruled out, I looked at the source host. The monitoring server had no route to the VLAN, so its traffic went to the home router and was dropped there before it ever reached the firewall. That's why nothing appeared in the logs. Along the way I also found a cloned deny rule that was pointing the wrong way.</p>
+        <p>To fix it, I:</p>
+        <ul>
+          <li>Added a persistent static route on the monitoring server</li>
+          <li>Corrected the deny rule</li>
+          <li>Verified isolation in both directions using the firewall logs</li>
         </ul>
 
-        <h2>Investigation</h2>
-        <p><span class="ph">[How you narrowed it down: logs, Event Viewer, admin centres, PowerShell, reproducing the issue, comparing with a working machine]</span></p>
-        <pre><code><span class="ph">[Optional: a command you used (remove any identifying details)]</span></code></pre>
+        <h2>Result</h2>
+        <p>The monitoring server could reach the server on the VLAN, and the logs confirmed the isolation was working in both directions.</p>
 
-        <h2>Root cause</h2>
-        <p><span class="ph">[What was actually wrong]</span></p>
-
-        <h2>Resolution</h2>
-        <p><span class="ph">[The fix, and how you confirmed it worked with the user]</span></p>
-
-        <h2>Preventing it happening again</h2>
-        <p><span class="ph">[Documentation, a knowledge base article, a policy change or a script, i.e. the ownership beyond closing the ticket]</span></p>
-
-        <h2>What I learned</h2>
         <div class="callout">
-          <p><span class="ph">[Key takeaways]</span></p>
+          <p><strong>Lesson:</strong> check the source host's routing table before blaming the firewall.</p>
         </div>
       </div>
 

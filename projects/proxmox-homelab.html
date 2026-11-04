@@ -6,13 +6,13 @@
 
   <!-- Project write-up: based on projects/_template.html -->
   <title>Proxmox homelab build | Harry – Tier I Support Analyst &amp; Dispatcher</title>
-  <meta name="description" content="How I built and use a Proxmox VE homelab to learn virtualisation, networking and self-hosting.">
+  <meta name="description" content="A Proxmox VE homelab with a VLAN-isolated Active Directory lab, self-hosted services, and Prometheus and Grafana monitoring.">
   <meta name="author" content="Harry">
   <meta name="theme-color" content="#0b1120">
 
   <meta property="og:type" content="article">
   <meta property="og:title" content="Proxmox homelab build | Harry – Tier I Support Analyst &amp; Dispatcher">
-  <meta property="og:description" content="How I built and use a Proxmox VE homelab to learn virtualisation, networking and self-hosting.">
+  <meta property="og:description" content="A Proxmox VE homelab with a VLAN-isolated Active Directory lab, self-hosted services, and Prometheus and Grafana monitoring.">
   <meta property="og:url" content="https://harrylyle07.github.io/Portfolio/projects/proxmox-homelab.html">
   <meta property="og:image" content="https://harrylyle07.github.io/Portfolio/assets/og-image.png">
   <meta property="og:locale" content="en_GB">
@@ -66,65 +66,65 @@
       <header class="article-head">
         <p class="eyebrow">Homelab</p>
         <h1>Proxmox homelab build</h1>
-        <p class="article-lead">A Proxmox VE homelab I run at home to learn virtualisation, practise networking and self-host services: a safe place to build, break and fix things.</p>
+        <p class="article-lead">A Proxmox VE homelab I built to get hands-on with virtualisation, networking, Active Directory and monitoring, somewhere I can safely build, break and fix things.</p>
 
         <dl class="article-meta">
-          <div><dt>Type</dt><dd>Homelab</dd></div><div><dt>Role</dt><dd>Design, build &amp; maintenance</dd></div><div><dt>Started</dt><dd><time datetime="2026-07">July 2026</time></dd></div>
+          <div><dt>Type</dt><dd>Homelab</dd></div><div><dt>Started</dt><dd><time datetime="2026-07">July 2026</time></dd></div><div><dt>Host</dt><dd>HP 290 G1 SFF</dd></div>
         </dl>
 
         <ul class="tags" aria-label="Technologies">
-          <li>Proxmox VE</li><li>Virtual machines</li><li>Containers</li><li>Networking</li><li>Self-hosting</li>
+          <li>Proxmox VE</li><li>Active Directory</li><li>Group Policy</li><li>VLANs</li><li>Pi-hole</li><li>Prometheus</li><li>Grafana</li>
         </ul>
       </header>
 
-      <p class="notice" role="note"><strong>Placeholder content.</strong> The structure is ready, but the specifics (hardware, services, network layout) need filling in. Replace everything highlighted like <span class="ph">[this]</span>.</p>
-
       <div class="prose">
         <h2>Overview</h2>
-        <p>I run a Proxmox homelab to get hands-on with the kind of infrastructure I don't always touch day to day at work. It gives me somewhere to test ideas, follow along with study material and self-host services, without any risk to a client environment.</p>
+        <p>I started the lab in July 2026 as a complete beginner, with no Linux command-line experience. It has grown into a segmented network running an Active Directory lab, a set of self-hosted services and a full monitoring stack, all on a single small form factor PC.</p>
 
-        <h2>Goals</h2>
+        <h2>Setup</h2>
+        <h3>Host</h3>
+        <p>An HP 290 G1 SFF with an Intel Core i5-8500, upgraded from 16&nbsp;GB to 32&nbsp;GB of RAM, running Proxmox VE. Workloads are organised into resource pools.</p>
+
+        <h3>Networking</h3>
+        <p>A Zyxel USG FLEX 200 firewall and a Zyxel GS1920-24 managed switch. The AD lab sits on its own isolated VLAN, with firewall rules that only allow specific traffic through, such as DNS and monitoring.</p>
+
+        <h3>Active Directory lab</h3>
         <ul>
-          <li>Build practical experience with virtualisation: creating, managing and troubleshooting VMs and containers.</li>
-          <li>Practise networking concepts in a real environment.</li>
-          <li>Self-host services and learn what it takes to keep them running.</li>
-          <li><span class="ph">[Any other goals, e.g. practising for a certification]</span></li>
+          <li>Domain controller</li>
+          <li>File server with department-based NTFS permissions tied to AD security groups</li>
+          <li>Windows 11 client for testing Group Policy, including drive mapping with item-level targeting and wallpaper / lock screen policies</li>
         </ul>
 
-        <h2>Hardware</h2>
+        <h3>Self-hosted services</h3>
         <ul>
-          <li><strong>Host:</strong> <span class="ph">[Machine / model]</span></li>
-          <li><strong>CPU / RAM:</strong> <span class="ph">[e.g. cores, GB of RAM]</span></li>
-          <li><strong>Storage:</strong> <span class="ph">[Disks and layout, e.g. ZFS mirror]</span></li>
-          <li><strong>Network:</strong> <span class="ph">[Router / switch / firewall]</span></li>
+          <li><strong>Pi-hole:</strong> network-wide DNS, ad blocking and DHCP</li>
+          <li><strong>Home Assistant</strong></li>
+          <li><strong>Homarr</strong> dashboard</li>
+          <li><strong>Plex</strong></li>
         </ul>
 
-        <h2>What's running</h2>
-        <p><span class="ph">[List your VMs and LXC containers and what each is for, e.g. a Windows Server VM for AD practice, a DNS filter, a monitoring stack, a media server.]</span></p>
+        <h3>Monitoring</h3>
+        <ul>
+          <li><strong>Uptime Kuma</strong> for uptime checks</li>
+          <li><strong>Prometheus and Grafana</strong> dashboards for Proxmox, the Windows servers and the switch (via SNMP)</li>
+          <li>Alerts sent to <strong>Discord</strong></li>
+        </ul>
 
-        <figure>
-          <div class="image-placeholder" role="img" aria-label="Placeholder for a homelab diagram or Proxmox dashboard screenshot"><span class="ph">[Add a network diagram or Proxmox dashboard screenshot here]</span></div>
-          <figcaption><span class="ph">[Caption]</span></figcaption>
-        </figure>
+        <h2>What I've learned</h2>
+        <p>Starting with no Linux command-line experience, the lab has given me hands-on practice with:</p>
+        <ul>
+          <li>Working on the Linux command line</li>
+          <li>Segmenting a network with VLANs and writing firewall rules that only allow what's needed</li>
+          <li>Active Directory, group-based NTFS permissions and Group Policy</li>
+          <li>Building monitoring and alerting with SNMP, Prometheus and Grafana</li>
+        </ul>
+        <p>It's also taught me to troubleshoot methodically. One example is written up in <a href="firewall-routing-case-study.html">The firewall that wasn't the problem</a>.</p>
 
-        <h2>Build process</h2>
-        <ol>
-          <li><span class="ph">[Installing Proxmox VE and initial configuration]</span></li>
-          <li><span class="ph">[Storage and networking setup]</span></li>
-          <li><span class="ph">[Deploying the first VMs / containers]</span></li>
-          <li><span class="ph">[Backups, updates and access]</span></li>
-        </ol>
-
-        <h2>Challenges &amp; how I solved them</h2>
-        <p><span class="ph">[Describe a real problem you hit, e.g. a VM that wouldn’t get an IP, a storage issue or a failed update, and how you diagnosed and fixed it. This is the part that shows 2nd line thinking.]</span></p>
-
-        <h2>What I learned</h2>
-        <div class="callout">
-          <p><span class="ph">[Key takeaways and how they carry over to your day job]</span></p>
-        </div>
-
-        <h2>What's next</h2>
-        <p><span class="ph">[Planned additions or improvements to the lab]</span></p>
+        <h2>Next steps</h2>
+        <ul>
+          <li>Tidy up the network design</li>
+          <li>Keep expanding the AD lab</li>
+        </ul>
       </div>
 
       <footer class="article-foot">
