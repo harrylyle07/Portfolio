@@ -1,4 +1,4 @@
-# Harry – IT Support Engineer Portfolio
+# Harry – Tier I Support Analyst & Dispatcher Portfolio
 
 A single-page personal portfolio built with plain **HTML, CSS and vanilla JavaScript**. There are no frameworks, no build step and no dependencies, so it runs on GitHub Pages as-is.
 
@@ -14,9 +14,7 @@ A single-page personal portfolio built with plain **HTML, CSS and vanilla JavaSc
 │                               # count-up stats, tech strip, card tilt, hero network canvas
 ├── projects/
 │   ├── _template.html          # Blank write-up template: copy this for new projects
-│   ├── proxmox-homelab.html    # Homelab write-up (structure done, details to fill in)
-│   ├── m365-intune-project.html          # PLACEHOLDER example
-│   └── troubleshooting-case-study.html   # PLACEHOLDER example
+│   └── proxmox-homelab.html    # Proxmox homelab write-up
 ├── assets/
 │   ├── favicon.svg             # "H" monogram favicon
 │   ├── favicon-32.png          # PNG fallback favicon
@@ -27,9 +25,9 @@ A single-page personal portfolio built with plain **HTML, CSS and vanilla JavaSc
 
 ## Finding what to edit
 
-- **Placeholders** are written in square brackets, e.g. `[Company name]`. Most are wrapped in `<span class="ph">…</span>`, which shows them **highlighted in amber** on the page so you can't miss any. Once you've replaced the text, remove the `<span class="ph">` wrapper too.
+- **Placeholders:** if you ever need one, wrap it in `<span class="ph">[like this]</span>` and it will show **highlighted in amber** on the page so it can't be missed. There are none on the site at the moment.
 - Search the code for `EDIT:` to find every comment that marks something to change.
-- Search for `your.email@example.com` and `your-profile` to find the contact links (they appear in the Contact section and the footer of every page).
+- Contact is via LinkedIn only. To change the LinkedIn URL, search for `linkedin.com/in/` (it appears in the Contact section and the footer of every page).
 
 ## Editing each section (`index.html`)
 
@@ -38,14 +36,14 @@ Each section is wrapped in a big comment banner such as `<!-- 3. SKILLS -->`.
 | Section | What to edit |
 |---|---|
 | **Meta / SEO** (`<head>`) | Title, description, Open Graph tags. If you use a custom domain, replace `https://harrylyle07.github.io/Portfolio/` everywhere. |
-| **1. Hero** | Heading, one-line pitch and the "Open to 2nd line support roles" status pill. **Typing phrases:** edit the `data-phrases` list *and* the matching `<span>`s inside `.typed-sizer` (these reserve space so the layout doesn't jump). **Stats row:** numbers inside `<span data-count="2">2</span>` count up when scrolled into view. Replace the `[X]` client-tenants placeholder with e.g. `<span data-count="15">15</span>`, or delete that `<li>`. |
+| **1. Hero** | Heading, one-line pitch and the "Open to 2nd line support roles" status pill. **Typing phrases:** edit the `data-phrases` list *and* the matching `<span>`s inside `.typed-sizer` (these reserve space so the layout doesn't jump). **Stats row:** numbers inside `<span data-count="2">2</span>` count up when scrolled into view. Add a stat by copying an `<li class="stat">`. The row is laid out for three; if you change the number, update `grid-template-columns` on `.hero-stats` in `css/styles.css`. |
 | **Technology strip** | The `<ul class="marquee-list">` just after the hero. Add or remove `<li>` items; the script duplicates them for the seamless loop. |
 | **2. About** | The three paragraphs. |
 | **3. Skills** | One `<article class="card skill-card">` per group. Add or remove `<li>` items. The **Networking & Security** and **Scripting** items are suggestions, so keep only what you're happy to talk about in an interview. |
-| **4. Projects** | One `<article class="card project-card">` per project (see *Adding a new project* below). Remove the `<span class="badge-placeholder">Placeholder</span>` once a card is real. |
+| **4. Projects** | Currently a single wide **featured card** for the Proxmox homelab (`<article class="card project-card project-featured">`). The left side is the summary and tags; the right-hand `<dl class="featured-specs">` is an at-a-glance spec list. Keep it in sync with the write-up. |
 | **5. Experience** | One `<li class="timeline-item">` per entry, newest first. Fill in company name, dates and training provider. |
-| **6. Certifications** | One `<article class="card cert-card">` per cert. Add your Credly link where marked. To use your real Credly badge image, replace the `<div class="cert-badge">…</div>` with `<img src="assets/your-badge.png" alt="Microsoft 365 Certified: Fundamentals badge" width="72" height="72">`. The dashed **In progress** card is for your next cert. |
-| **7. Contact** | Email address (`mailto:`) and LinkedIn URL. |
+| **6. Certifications** | One `<article class="card cert-card">` per cert. To make a whole card link to a credential (as the MS-900 card does), add the `cert-card-linked` class and put the link on the heading with `class="card-link"`. To use a real badge image, replace the `<div class="cert-badge">…</div>` with `<img src="assets/your-badge.png" alt="Microsoft 365 Certified: Fundamentals badge" width="72" height="72">`. |
+| **7. Contact** | LinkedIn button (contact is LinkedIn only: no email, phone or form). |
 | **8. Footer** | Links. The year updates automatically. |
 
 ### Changing colours
@@ -57,7 +55,7 @@ All colours are CSS variables at the top of `css/styles.css`, one block for dark
 1. **Copy the template:** duplicate `projects/_template.html` and give it a short name, e.g. `projects/exchange-migration.html`.
 2. **Update the `<head>`:** title, description and the `og:` tags (replace `FILE-NAME.html`), and **delete the `<meta name="robots" content="noindex">` line** (it's only there so the template itself isn't indexed by search engines).
 3. **Fill in the article:** the header (title, summary, type/role/date, tags) and the body sections. Delete any sections you don't need.
-4. **Add a card on the home page:** in `index.html`, copy an existing `<article class="card project-card">` in the Projects section and update the icon label, title, link (`href="projects/your-file.html"`), description and tags.
+4. **Add a card on the home page:** the Projects section is laid out for one featured project. To show several, wrap the cards in `<div class="card-grid projects-grid">…</div>` (a responsive grid). Then either keep the homelab as `project-featured` above the grid, or remove that class and the `<dl class="featured-specs">` to make it a normal card. Each normal card is an `<article class="card project-card reveal" data-tilt>` with an icon, `project-kind` label, heading link (`href="projects/your-file.html"`), description, tags and a `read-more` line.
 5. **Screenshots (optional):** put images in `assets/projects/` and always include descriptive `alt` text. Remove or blur client names, tenant names, email addresses and anything else that identifies a client.
 
 ## Running it locally

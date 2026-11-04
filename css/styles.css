@@ -165,6 +165,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .accent-text { color: var(--accent); }
+.nowrap { white-space: nowrap; }
 
 /* 4. Header & navigation --------------------------------------------------- */
 .site-header {
@@ -595,19 +596,13 @@ img { max-width: 100%; height: auto; display: block; }
   gap: 1rem;
 }
 
-.project-kind,
-.badge-placeholder {
+.project-kind {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
   border: 1px solid var(--border);
   color: var(--text-muted);
-}
-.badge-placeholder {
-  color: var(--placeholder);
-  background: var(--placeholder-soft);
-  border-color: transparent;
 }
 
 .card-link { color: var(--text-strong); }
@@ -636,6 +631,61 @@ img { max-width: 100%; height: auto; display: block; }
   box-shadow: var(--shadow-hover);
 }
 .project-card:hover .read-more .arrow { transform: translateX(4px); }
+
+/* Featured (single) project */
+.project-featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  padding: 2.5rem;
+  overflow: hidden;
+}
+.project-featured .featured-main {
+  display: flex;
+  flex-direction: column;
+}
+.project-featured h3 { font-size: 1.5rem; margin-bottom: 0.9rem; }
+.project-featured p { font-size: 1.025rem; }
+.project-featured .tags { margin-top: auto; }
+
+.featured-specs {
+  margin: 0;
+  display: grid;
+  align-content: center;
+  gap: 1.1rem;
+  padding-left: 2.5rem;
+  border-left: 1px solid var(--border);
+}
+.featured-specs dt {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 0.15rem;
+}
+.featured-specs dd {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .project-featured { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
+  .featured-specs {
+    padding-left: 0;
+    padding-top: 1.75rem;
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .project-featured { padding: 1.35rem; }
+  .project-featured h3 { font-size: 1.3rem; }
+  .featured-specs { grid-template-columns: 1fr; }
+}
 
 /* 8d. Timeline ------------------------------------------------------------- */
 .timeline {
@@ -735,8 +785,6 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 0.8rem;
 }
 .cert-badge-alt { background: linear-gradient(145deg, #f59e0b, var(--accent)); }
-.cert-badge-pending { background: var(--border-strong); }
-.cert-badge-pending span { color: var(--text-muted); }
 
 .cert-issuer {
   font-size: 0.9rem;
@@ -744,22 +792,10 @@ img { max-width: 100%; height: auto; display: block; }
   margin-bottom: 0.6rem;
 }
 .cert-issuer:last-child { margin-bottom: 0; }
-.cert-note { font-size: 0.85rem; }
+.cert-card-linked .read-more { display: inline-block; margin-top: 0.15rem; }
+.cert-card-linked:hover { border-color: var(--accent); }
+.cert-card-linked:hover .read-more .arrow { transform: translateX(4px); }
 
-.cert-card-pending {
-  border-style: dashed;
-  border-color: var(--border-strong);
-  background: transparent;
-  box-shadow: none;
-}
-.cert-status {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--accent);
-  margin-bottom: 0.35rem;
-}
 
 /* 8f. Contact -------------------------------------------------------------- */
 .contact-card {
@@ -978,8 +1014,8 @@ img { max-width: 100%; height: auto; display: block; }
 .hero-stats {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  max-width: 820px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 720px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
@@ -1114,8 +1150,7 @@ img { max-width: 100%; height: auto; display: block; }
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .stat:nth-child(3) { border-left: 0; }
-  .stat:nth-child(n+3) { border-top: 1px solid var(--border); }
+  .stat:nth-child(3) { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--border); }
 }
 
 @media (max-width: 820px) {
