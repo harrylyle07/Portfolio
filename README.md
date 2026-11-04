@@ -1,4 +1,4 @@
-# Harry – IT Support Engineer Portfolio
+# Harry – Tier I Support Analyst & Dispatcher Portfolio
 
 A single-page personal portfolio built with plain **HTML, CSS and vanilla JavaScript**. There are no frameworks, no build step and no dependencies, so it runs on GitHub Pages as-is.
 
@@ -29,7 +29,7 @@ A single-page personal portfolio built with plain **HTML, CSS and vanilla JavaSc
 
 - **Placeholders** are written in square brackets, e.g. `[Company name]`. Most are wrapped in `<span class="ph">…</span>`, which shows them **highlighted in amber** on the page so you can't miss any. Once you've replaced the text, remove the `<span class="ph">` wrapper too.
 - Search the code for `EDIT:` to find every comment that marks something to change.
-- Search for `your.email@example.com` and `your-profile` to find the contact links (they appear in the Contact section and the footer of every page).
+- Contact is via LinkedIn only. To change the LinkedIn URL, search for `linkedin.com/in/` (it appears in the Contact section and the footer of every page).
 
 ## Editing each section (`index.html`)
 
@@ -45,7 +45,7 @@ Each section is wrapped in a big comment banner such as `<!-- 3. SKILLS -->`.
 | **4. Projects** | One `<article class="card project-card">` per project (see *Adding a new project* below). Remove the `<span class="badge-placeholder">Placeholder</span>` once a card is real. |
 | **5. Experience** | One `<li class="timeline-item">` per entry, newest first. Fill in company name, dates and training provider. |
 | **6. Certifications** | One `<article class="card cert-card">` per cert. Add your Credly link where marked. To use your real Credly badge image, replace the `<div class="cert-badge">…</div>` with `<img src="assets/your-badge.png" alt="Microsoft 365 Certified: Fundamentals badge" width="72" height="72">`. The dashed **In progress** card is for your next cert. |
-| **7. Contact** | Email address (`mailto:`) and LinkedIn URL. |
+| **7. Contact** | LinkedIn button (contact is LinkedIn only: no email, phone or form). |
 | **8. Footer** | Links. The year updates automatically. |
 
 ### Changing colours
