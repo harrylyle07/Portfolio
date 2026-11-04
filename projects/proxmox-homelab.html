@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Project write-up: based on projects/_template.html -->
+  <title>Proxmox homelab build | Harry – IT Support Engineer</title>
+  <meta name="description" content="How I built and use a Proxmox VE homelab to learn virtualisation, networking and self-hosting.">
+  <meta name="author" content="Harry">
+  <meta name="theme-color" content="#0b1120">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Proxmox homelab build | Harry – IT Support Engineer">
+  <meta property="og:description" content="How I built and use a Proxmox VE homelab to learn virtualisation, networking and self-hosting.">
+  <meta property="og:url" content="https://harrylyle07.github.io/Portfolio/projects/proxmox-homelab.html">
+  <meta property="og:image" content="https://harrylyle07.github.io/Portfolio/assets/og-image.png">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script>
+    (function () {
+      document.documentElement.classList.add('js');
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="../js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- HEADER (no need to edit) -->
+  <header class="site-header page-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Harry – home">
+        <span class="brand-mark" aria-hidden="true">H</span>
+        <span class="brand-name">Harry</span>
+      </a>
+      <a class="back-link" href="../index.html#projects">&larr; All projects</a>
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="article">
+    <article class="container">
+
+      <!-- =========================================================
+           ARTICLE HEADER: title, summary, key facts, tags
+           ========================================================= -->
+      <header class="article-head">
+        <p class="eyebrow">Homelab</p>
+        <h1>Proxmox homelab build</h1>
+        <p class="article-lead">A Proxmox VE homelab I run at home to learn virtualisation, practise networking and self-host services: a safe place to build, break and fix things.</p>
+
+        <dl class="article-meta">
+          <div><dt>Type</dt><dd>Homelab</dd></div><div><dt>Role</dt><dd>Design, build &amp; maintenance</dd></div><div><dt>Started</dt><dd><span class="ph">[Month Year]</span></dd></div>
+        </dl>
+
+        <ul class="tags" aria-label="Technologies">
+          <li>Proxmox VE</li><li>Virtual machines</li><li>Containers</li><li>Networking</li><li>Self-hosting</li>
+        </ul>
+      </header>
+
+      <p class="notice" role="note"><strong>Placeholder content.</strong> The structure is ready, but the specifics (hardware, services, network layout) need filling in. Replace everything highlighted like <span class="ph">[this]</span>.</p>
+
+      <div class="prose">
+        <h2>Overview</h2>
+        <p>I run a Proxmox homelab to get hands-on with the kind of infrastructure I don't always touch day to day at work. It gives me somewhere to test ideas, follow along with study material and self-host services, without any risk to a client environment.</p>
+
+        <h2>Goals</h2>
+        <ul>
+          <li>Build practical experience with virtualisation: creating, managing and troubleshooting VMs and containers.</li>
+          <li>Practise networking concepts in a real environment.</li>
+          <li>Self-host services and learn what it takes to keep them running.</li>
+          <li><span class="ph">[Any other goals, e.g. practising for a certification]</span></li>
+        </ul>
+
+        <h2>Hardware</h2>
+        <ul>
+          <li><strong>Host:</strong> <span class="ph">[Machine / model]</span></li>
+          <li><strong>CPU / RAM:</strong> <span class="ph">[e.g. cores, GB of RAM]</span></li>
+          <li><strong>Storage:</strong> <span class="ph">[Disks and layout, e.g. ZFS mirror]</span></li>
+          <li><strong>Network:</strong> <span class="ph">[Router / switch / firewall]</span></li>
+        </ul>
+
+        <h2>What's running</h2>
+        <p><span class="ph">[List your VMs and LXC containers and what each is for, e.g. a Windows Server VM for AD practice, a DNS filter, a monitoring stack, a media server.]</span></p>
+
+        <figure>
+          <div class="image-placeholder" role="img" aria-label="Placeholder for a homelab diagram or Proxmox dashboard screenshot"><span class="ph">[Add a network diagram or Proxmox dashboard screenshot here]</span></div>
+          <figcaption><span class="ph">[Caption]</span></figcaption>
+        </figure>
+
+        <h2>Build process</h2>
+        <ol>
+          <li><span class="ph">[Installing Proxmox VE and initial configuration]</span></li>
+          <li><span class="ph">[Storage and networking setup]</span></li>
+          <li><span class="ph">[Deploying the first VMs / containers]</span></li>
+          <li><span class="ph">[Backups, updates and access]</span></li>
+        </ol>
+
+        <h2>Challenges &amp; how I solved them</h2>
+        <p><span class="ph">[Describe a real problem you hit, e.g. a VM that wouldn’t get an IP, a storage issue or a failed update, and how you diagnosed and fixed it. This is the part that shows 2nd line thinking.]</span></p>
+
+        <h2>What I learned</h2>
+        <div class="callout">
+          <p><span class="ph">[Key takeaways and how they carry over to your day job]</span></p>
+        </div>
+
+        <h2>What's next</h2>
+        <p><span class="ph">[Planned additions or improvements to the lab]</span></p>
+      </div>
+
+      <footer class="article-foot">
+        <a class="btn btn-ghost" href="../index.html#projects">&larr; Back to projects</a>
+        <a class="btn btn-primary" href="../index.html#contact">Get in touch</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span data-year>2026</span> Harry</p>
+      <ul class="footer-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="https://github.com/harrylyle07" target="_blank" rel="noopener noreferrer">GitHub<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+        <li><a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

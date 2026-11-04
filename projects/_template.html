@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- =========================================================
+       PROJECT WRITE-UP TEMPLATE
+       How to use:
+         1. Copy this file and rename it, e.g. projects/my-new-project.html
+         2. Update the <title>, description and og: tags below
+         3. Fill in each section in the ARTICLE block
+         4. Add a card for it in the Projects section of index.html
+       Delete any section you don't need.
+       ========================================================= -->
+  <title>Project title | Harry – IT Support Engineer</title>
+  <meta name="description" content="One-sentence summary of this project.">
+  <meta name="author" content="Harry">
+  <meta name="theme-color" content="#0b1120">
+  <meta name="robots" content="noindex"> <!-- Template only: delete this line in your copy -->
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Project title | Harry – IT Support Engineer">
+  <meta property="og:description" content="One-sentence summary of this project.">
+  <meta property="og:url" content="https://harrylyle07.github.io/Portfolio/projects/FILE-NAME.html">
+  <meta property="og:image" content="https://harrylyle07.github.io/Portfolio/assets/og-image.png">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script>
+    (function () {
+      document.documentElement.classList.add('js');
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="../js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- HEADER (no need to edit) -->
+  <header class="site-header page-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Harry – home">
+        <span class="brand-mark" aria-hidden="true">H</span>
+        <span class="brand-name">Harry</span>
+      </a>
+      <a class="back-link" href="../index.html#projects">&larr; All projects</a>
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="article">
+    <article class="container">
+
+      <!-- =========================================================
+           ARTICLE HEADER: title, summary, key facts, tags
+           ========================================================= -->
+      <header class="article-head">
+        <p class="eyebrow">Project write-up</p>
+        <h1>Project title</h1>
+        <p class="article-lead">One or two sentences: what the problem or goal was and what you achieved.</p>
+
+        <dl class="article-meta">
+          <div><dt>Type</dt><dd>Work / Homelab / Case study</dd></div>
+          <div><dt>Role</dt><dd>e.g. Sole engineer</dd></div>
+          <div><dt>Date</dt><dd>Month Year</dd></div>
+        </dl>
+
+        <ul class="tags" aria-label="Technologies">
+          <li>Tech one</li><li>Tech two</li><li>Tech three</li>
+        </ul>
+      </header>
+
+      <!-- =========================================================
+           ARTICLE BODY
+           Tip for 2nd line roles: show your reasoning, ownership
+           and what you'd do differently, not just the steps.
+           Keep client names and identifying details anonymous.
+           ========================================================= -->
+      <div class="prose">
+        <h2>Overview</h2>
+        <p>Set the scene. What was the situation, who was affected and why did it matter?</p>
+
+        <h2>Goals</h2>
+        <ul>
+          <li>What did you set out to achieve?</li>
+          <li>Any constraints (time, budget, licensing, downtime)?</li>
+        </ul>
+
+        <h2>Approach</h2>
+        <p>Walk through what you did and, importantly, <em>why</em> you made each decision.</p>
+        <ol>
+          <li>Step one</li>
+          <li>Step two</li>
+          <li>Step three</li>
+        </ol>
+
+        <!-- Optional: code / commands. Remove if not needed.
+             Never paste real tenant names, passwords or keys. -->
+        <pre><code># Example PowerShell
+Get-Mailbox -ResultSize Unlimited | Select-Object DisplayName, PrimarySmtpAddress</code></pre>
+
+        <!-- Optional: screenshot. Put images in /assets/projects/ and ALWAYS write alt text.
+             <figure>
+               <img src="../assets/projects/example.png" alt="Describe what the screenshot shows">
+               <figcaption>Short caption</figcaption>
+             </figure> -->
+
+        <h2>Challenges &amp; how I solved them</h2>
+        <p>What went wrong or was harder than expected, and how did you work through it?</p>
+
+        <h2>Outcome</h2>
+        <p>What was the result? Use numbers if you can (e.g. tickets reduced, time saved, devices enrolled).</p>
+
+        <h2>What I learned</h2>
+        <div class="callout">
+          <p>Key takeaways, and what you'd do differently next time.</p>
+        </div>
+      </div>
+
+      <footer class="article-foot">
+        <a class="btn btn-ghost" href="../index.html#projects">&larr; Back to projects</a>
+        <a class="btn btn-primary" href="../index.html#contact">Get in touch</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span data-year>2026</span> Harry</p>
+      <ul class="footer-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="https://github.com/harrylyle07" target="_blank" rel="noopener noreferrer">GitHub<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+        <li><a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
