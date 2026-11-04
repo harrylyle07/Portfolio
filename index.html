@@ -20,7 +20,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Harry – Tier I Support Analyst &amp; Dispatcher">
   <meta property="og:title" content="Harry | Tier I Support Analyst &amp; Dispatcher">
-  <meta property="og:description" content="Over two years' MSP experience across multiple Microsoft 365 tenants, Windows endpoints and a Proxmox homelab. Ready for 2nd line.">
+  <meta property="og:description" content="Over two years' MSP experience across multiple Microsoft 365 tenants, Windows endpoints and a Proxmox homelab. Working towards 2nd line.">
   <meta property="og:url" content="https://harrylyle07.github.io/">
   <meta property="og:image" content="https://harrylyle07.github.io/assets/og-image.png">
   <meta property="og:image:secure_url" content="https://harrylyle07.github.io/assets/og-image.png">
@@ -33,7 +33,7 @@
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Harry | Tier I Support Analyst &amp; Dispatcher">
-  <meta name="twitter:description" content="Over two years' MSP experience across multiple Microsoft 365 tenants, Windows endpoints and a Proxmox homelab. Ready for 2nd line.">
+  <meta name="twitter:description" content="Over two years' MSP experience across multiple Microsoft 365 tenants, Windows endpoints and a Proxmox homelab. Working towards 2nd line.">
   <meta name="twitter:image" content="https://harrylyle07.github.io/assets/og-image.png">
   <meta name="twitter:image:alt" content="Harry – Tier I Support Analyst &amp; Dispatcher portfolio">
 
@@ -61,9 +61,9 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/print.css" media="print">
-  <script src="js/main.js" defer></script>
+  <link rel="stylesheet" href="css/styles.css?v=2">
+  <link rel="stylesheet" href="css/print.css?v=2" media="print">
+  <script src="js/main.js?v=2" defer></script>
 
   <!-- Structured data for search engines -->
   <script type="application/ld+json">
@@ -133,9 +133,10 @@
       </div>
 
       <div class="container hero-inner">
+       <div class="hero-copy">
         <p class="hero-status reveal">
           <span class="status-dot" aria-hidden="true"></span>
-          Open to 2nd line support roles
+          Tier I Support &middot; building towards 2nd line
         </p>
         <!-- Typing effect: edit the phrases in data-phrases (and the matching
              sizer spans, which reserve space so the layout doesn't jump).
@@ -154,7 +155,7 @@
         </h1>
         <p class="hero-pitch reveal">
           Over two years of hands-on MSP experience across multiple Microsoft&nbsp;365 tenants,
-          owning issues from first contact to fix, and ready to take on 2nd line.
+          owning issues from first contact to fix, and building towards 2nd line.
         </p>
         <div class="hero-actions reveal">
           <a class="btn btn-primary" href="#projects">View projects <span class="arrow" aria-hidden="true">&rarr;</span></a>
@@ -175,6 +176,67 @@
             <span class="stat-label">Level 3 Digital Support Technician</span>
           </li>
         </ul>
+       </div>
+
+        <!-- Lab status console: a decorative dashboard built from the homelab facts
+             (service names and hardware only; no made-up numbers). Hidden from
+             screen readers; the same facts are in the Projects section. -->
+        <div class="hero-visual reveal" aria-hidden="true">
+          <figure class="hero-photo">
+            <img src="assets/photos/switch-cables.jpg" alt="" width="1600" height="1067" fetchpriority="high" decoding="async">
+          </figure>
+          <div class="console card" data-tilt data-tilt-max="3">
+            <div class="console-bar">
+              <span class="build-log-dots"><i></i><i></i><i></i></span>
+              <span class="console-title">homelab · status</span>
+              <span class="console-live"><i></i>live</span>
+            </div>
+            <ul class="console-rows">
+              <li class="console-row">
+                <span class="c-dot"></span>
+                <span class="c-name">Proxmox VE host</span>
+                <span class="c-meta">HP 290 G1 · 32 GB</span>
+                <svg class="c-spark" viewBox="0 0 80 20" preserveAspectRatio="none"><polyline points="0,14 10,12 20,13 30,8 40,10 50,6 60,9 70,5 80,7"/></svg>
+              </li>
+              <li class="console-row">
+                <span class="c-dot c-dot-2"></span>
+                <span class="c-name">Domain controller</span>
+                <span class="c-meta">AD lab VLAN</span>
+                <svg class="c-spark" viewBox="0 0 80 20" preserveAspectRatio="none"><polyline points="0,10 10,11 20,9 30,12 40,8 50,10 60,7 70,9 80,8"/></svg>
+              </li>
+              <li class="console-row">
+                <span class="c-dot"></span>
+                <span class="c-name">Pi-hole</span>
+                <span class="c-meta">DNS · DHCP</span>
+                <svg class="c-spark" viewBox="0 0 80 20" preserveAspectRatio="none"><polyline points="0,12 10,6 20,11 30,7 40,13 50,5 60,10 70,6 80,9"/></svg>
+              </li>
+              <li class="console-row">
+                <span class="c-dot"></span>
+                <span class="c-name">Prometheus · Grafana</span>
+                <span class="c-meta">monitoring</span>
+                <svg class="c-spark" viewBox="0 0 80 20" preserveAspectRatio="none"><polyline points="0,15 10,13 20,14 30,10 40,11 50,8 60,9 70,6 80,4"/></svg>
+              </li>
+              <li class="console-row">
+                <span class="c-dot"></span>
+                <span class="c-name">Uptime Kuma</span>
+                <span class="c-meta">checks</span>
+                <svg class="c-spark" viewBox="0 0 80 20" preserveAspectRatio="none"><polyline points="0,9 10,9 20,8 30,9 40,9 50,8 60,9 70,8 80,9"/></svg>
+              </li>
+              <li class="console-row">
+                <span class="c-dot c-dot-2"></span>
+                <span class="c-name">Discord</span>
+                <span class="c-meta">alerts</span>
+                <svg class="c-spark" viewBox="0 0 80 20" preserveAspectRatio="none"><polyline points="0,10 10,10 20,10 30,4 40,10 50,10 60,10 70,10 80,10"/></svg>
+              </li>
+            </ul>
+            <div class="console-foot">
+              <span class="console-foot-text">Zyxel USG FLEX 200 · GS1920-24</span>
+              <span class="c-tag">VLAN isolated</span>
+            </div>
+          </div>
+          <div class="hero-chip hero-chip-1"><span class="chip-icon">&#10003;</span>MS-900 certified</div>
+          <div class="hero-chip hero-chip-2"><span class="chip-icon">&#9733;</span>Level 3 · Distinction</div>
+        </div>
       </div>
     </section>
 
@@ -206,12 +268,12 @@
          ========================================================= -->
     <section class="section" id="about" aria-labelledby="about-title">
       <div class="container">
-        <header class="section-head reveal">
+        <header class="section-head reveal" data-num="01">
           <p class="eyebrow">01 / About</p>
           <h2 class="section-title" id="about-title">About me</h2>
         </header>
 
-        <div class="about-grid about-grid-single">
+        <div class="about-grid">
           <div class="about-text reveal">
             <p>
               I'm a Tier I Support Analyst &amp; Dispatcher at Offsite Cloud, a managed service provider in Essex, where I've spent
@@ -225,10 +287,19 @@
               to deepen my understanding of virtualisation, networking and self-hosting.
             </p>
             <p>
-              I'm now looking to move into a 2nd line support role, where I can take ownership of
-              more complex problems, dig into root causes and keep building my technical depth.
+              I'm working towards 2nd line: taking ownership of more complex problems, digging into
+              root causes and keeping on building my technical depth.
             </p>
           </div>
+
+          <!-- Illustration card. EDIT: swap for a photo of your own lab when you have one (keep the width/height and update the alt text). -->
+          <figure class="photo-card card reveal" data-tilt data-tilt-max="3">
+            <img src="assets/photos/switch-ports.jpg" alt="Illustration of a managed network switch with cables plugged into its ports" width="1600" height="1067" loading="lazy" decoding="async">
+            <figcaption>
+              <span class="photo-label">Networking &amp; VLANs</span>
+              <span class="photo-credit">Illustration</span>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -239,20 +310,21 @@
          ========================================================= -->
     <section class="section section-alt" id="skills" aria-labelledby="skills-title">
       <div class="container">
-        <header class="section-head reveal">
+        <header class="section-head reveal" data-num="02">
           <p class="eyebrow">02 / Skills</p>
           <h2 class="section-title" id="skills-title">What I work with</h2>
           <p class="section-intro">The tools and platforms I use day to day, and the ones I'm building depth in through my homelab.</p>
         </header>
 
         <div class="card-grid skills-grid">
-          <!-- Skill group: Microsoft 365 & Identity -->
-          <article class="card skill-card reveal" data-tilt>
+          <!-- Skill group: Microsoft 365 & Identity (wide card) -->
+          <article class="card skill-card skill-card-wide reveal" data-tilt>
             <div class="card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5l-8-3z"/><circle cx="12" cy="10" r="2.5"/><path d="M8.5 16a3.5 3.5 0 0 1 7 0"/></svg>
             </div>
             <h3>Microsoft 365 &amp; Identity</h3>
-            <ul class="skill-list">
+            <p class="skill-blurb">Administered day to day across multiple client tenants at an MSP.</p>
+            <ul class="skill-list skill-list-cols">
               <li>Exchange Online</li>
               <li>Entra ID</li>
               <li>Intune</li>
@@ -323,7 +395,7 @@
          ========================================================= -->
     <section class="section section-glow" id="projects" aria-labelledby="projects-title">
       <div class="container">
-        <header class="section-head reveal">
+        <header class="section-head reveal" data-num="03">
           <p class="eyebrow">03 / Projects &amp; Lab</p>
           <h2 class="section-title" id="projects-title">Projects &amp; lab work</h2>
           <p class="section-intro">Outside work I run a Proxmox homelab to build hands-on experience with virtualisation, networking, Active Directory and monitoring.</p>
@@ -332,6 +404,10 @@
         <!-- Featured project: one wide card.
              To show several projects instead, see "Adding a new project" in README.md. -->
         <article class="card project-card project-featured reveal" data-tilt data-tilt-max="1.5">
+          <figure class="featured-cover" aria-hidden="true">
+            <img src="assets/photos/rack-dark.jpg" alt="" width="1600" height="900" loading="lazy" decoding="async">
+            <span class="photo-credit">Illustration</span>
+          </figure>
           <div class="featured-main">
             <div class="project-top">
               <div class="card-icon" aria-hidden="true">
@@ -364,7 +440,7 @@
          ========================================================= -->
     <section class="section section-alt" id="experience" aria-labelledby="experience-title">
       <div class="container">
-        <header class="section-head reveal">
+        <header class="section-head reveal" data-num="04">
           <p class="eyebrow">04 / Experience</p>
           <h2 class="section-title" id="experience-title">Experience</h2>
         </header>
@@ -409,7 +485,7 @@
          ========================================================= -->
     <section class="section" id="certifications" aria-labelledby="certs-title">
       <div class="container">
-        <header class="section-head reveal">
+        <header class="section-head reveal" data-num="05">
           <p class="eyebrow">05 / Certifications</p>
           <h2 class="section-title" id="certs-title">Certifications &amp; qualifications</h2>
         </header>
@@ -448,7 +524,7 @@
           <div class="contact-glow" aria-hidden="true"></div>
           <p class="eyebrow">06 / Contact</p>
           <h2 class="section-title" id="contact-title">Let's talk</h2>
-          <p class="section-intro">I'm looking for my next step into 2nd line support. If you have a role in mind or just want to connect, message me on LinkedIn.</p>
+          <p class="section-intro">If you'd like to talk Microsoft 365, homelabs or anything IT support, or just want to connect, message me on LinkedIn.</p>
           <div class="contact-actions">
             <a class="btn btn-primary" href="https://www.linkedin.com/in/harry-lyle-868854328/" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7h.01M11 17v-4a2 2 0 0 1 4 0v4M11 10v7"/></svg>
