@@ -8,23 +8,34 @@
   <title>Proxmox homelab build | Harry – Tier I Support Analyst &amp; Dispatcher</title>
   <meta name="description" content="A Proxmox VE homelab with a VLAN-isolated Active Directory lab, self-hosted services, and Prometheus and Grafana monitoring.">
   <meta name="author" content="Harry">
-  <meta name="theme-color" content="#0b1120">
+  <meta name="theme-color" content="#090d16">
+  <link rel="canonical" href="https://harrylyle07.github.io/projects/proxmox-homelab.html">
 
   <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Harry – Tier I Support Analyst &amp; Dispatcher">
   <meta property="og:title" content="Proxmox homelab build | Harry – Tier I Support Analyst &amp; Dispatcher">
   <meta property="og:description" content="A Proxmox VE homelab with a VLAN-isolated Active Directory lab, self-hosted services, and Prometheus and Grafana monitoring.">
-  <meta property="og:url" content="https://harrylyle07.github.io/Portfolio/projects/proxmox-homelab.html">
-  <meta property="og:image" content="https://harrylyle07.github.io/Portfolio/assets/og-image.png">
+  <meta property="og:url" content="https://harrylyle07.github.io/projects/proxmox-homelab.html">
+  <meta property="og:image" content="https://harrylyle07.github.io/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Harry – Tier I Support Analyst &amp; Dispatcher portfolio">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Proxmox homelab build | Harry">
+  <meta name="twitter:description" content="A Proxmox VE homelab with a VLAN-isolated Active Directory lab, self-hosted services, and Prometheus and Grafana monitoring.">
+  <meta name="twitter:image" content="https://harrylyle07.github.io/assets/og-image.png">
 
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="../assets/favicon-16.png" sizes="16x16" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <script>
     (function () {
@@ -37,13 +48,15 @@
   </script>
 
   <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/print.css" media="print">
   <script src="../js/main.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
 
   <!-- HEADER (no need to edit) -->
-  <header class="site-header page-header">
+  <header class="site-header page-header" id="top">
     <div class="container header-inner">
       <a class="brand" href="../index.html" aria-label="Harry – home">
         <span class="brand-mark" aria-hidden="true">H</span>
@@ -58,12 +71,13 @@
   </header>
 
   <main id="main" class="article">
+    <div class="article-bg" aria-hidden="true"></div>
     <article class="container">
 
       <!-- =========================================================
            ARTICLE HEADER: title, summary, key facts, tags
            ========================================================= -->
-      <header class="article-head">
+      <header class="article-head reveal">
         <p class="eyebrow">Homelab</p>
         <h1>Proxmox homelab build</h1>
         <p class="article-lead">A Proxmox VE homelab I built to get hands-on with virtualisation, networking, Active Directory and monitoring, all running on a single small form factor PC.</p>
@@ -78,57 +92,221 @@
       </header>
 
       <div class="prose">
-        <h2>Overview</h2>
-        <p>I started the lab in July 2026 as a complete beginner, with no Linux command-line experience. It has grown into a segmented network running an Active Directory lab, a set of self-hosted services and a full monitoring stack, all on a single small form factor PC.</p>
+        <h2 class="reveal">Overview</h2>
+        <p class="reveal">I started the lab in July 2026 as a complete beginner, with no Linux command-line experience. It has grown into a segmented network running an Active Directory lab, a set of self-hosted services and a full monitoring stack, all on a single small form factor PC.</p>
 
-        <h2>Setup</h2>
-        <h3>Host</h3>
-        <p>An HP 290 G1 SFF with an Intel Core i5-8500, upgraded from 16&nbsp;GB to 32&nbsp;GB of RAM, running Proxmox VE. Workloads are organised into resource pools.</p>
+        <!-- =========================================================
+             ARCHITECTURE DIAGRAM (inline SVG so it follows the theme).
+             Connections pulse via CSS; no IP addresses are shown.
+             ========================================================= -->
+        <h2 class="reveal">Architecture</h2>
+        <figure class="diagram reveal">
+          <div class="diagram-frame">
+            <svg viewBox="0 0 760 600" role="img" aria-labelledby="arch-title arch-desc">
+              <title id="arch-title">Homelab architecture</title>
+              <desc id="arch-desc">The internet connects to a Zyxel USG FLEX 200 firewall, then a Zyxel GS1920-24 managed switch, then the Proxmox VE host, an HP 290 G1 SFF. On the host, an isolated VLAN holds the Active Directory lab: a domain controller, a file server and a Windows 11 client. Alongside it run the self-hosted services Pi-hole, Home Assistant, Homarr and Plex, and the monitoring stack of Uptime Kuma, Prometheus and Grafana, which sends alerts to Discord. The switch is monitored over SNMP.</desc>
 
-        <h3>Networking</h3>
-        <p>A Zyxel USG FLEX 200 firewall and a Zyxel GS1920-24 managed switch. The AD lab sits on its own isolated VLAN, with firewall rules that only allow specific traffic through, such as DNS and monitoring.</p>
+              <!-- Links (drawn first so nodes sit on top) -->
+              <path class="d-link" d="M180 58H250"/>
+              <path class="d-flow" d="M180 58H250"/>
+              <path class="d-link" d="M380 86V130"/>
+              <path class="d-flow" d="M380 86V130"/>
+              <path class="d-link" d="M380 186V230"/>
+              <path class="d-flow" d="M380 186V230"/>
+              <path class="d-link" d="M510 158H560V268"/>
+              <path class="d-flow d-flow-slow" d="M510 158H560V268"/>
+              <text class="d-tag d-tag-2" x="518" y="150">SNMP</text>
+              <path class="d-link" d="M640 268V86"/>
+              <path class="d-flow d-flow-slow" d="M640 268V86"/>
+              <text class="d-tag d-tag-2" x="648" y="182">alerts</text>
 
-        <h3>Active Directory lab</h3>
-        <ul>
-          <li>Domain controller</li>
-          <li>File server with department-based NTFS permissions tied to AD security groups</li>
-          <li>Windows 11 client for testing Group Policy, including drive mapping with item-level targeting and wallpaper / lock screen policies</li>
-        </ul>
+              <!-- Pulses at the junctions -->
+              <circle class="d-pulse" cx="380" cy="108" r="6"/>
+              <circle class="d-pulse d-pulse-2" cx="380" cy="208" r="6"/>
+              <circle cx="380" cy="108" r="3" fill="var(--accent)"/>
+              <circle cx="380" cy="208" r="3" fill="var(--accent)"/>
 
-        <h3>Self-hosted services</h3>
-        <ul>
-          <li><strong>Pi-hole:</strong> network-wide DNS, ad blocking and DHCP</li>
-          <li><strong>Home Assistant</strong></li>
-          <li><strong>Homarr</strong> dashboard</li>
-          <li><strong>Plex</strong></li>
-        </ul>
+              <!-- Internet -->
+              <rect class="d-node" x="40" y="30" width="140" height="56" rx="10"/>
+              <g class="d-icon" transform="translate(54 47) scale(0.9)"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></g>
+              <text class="d-name" x="86" y="54">Internet</text>
+              <text class="d-sub" x="86" y="70">WAN</text>
 
-        <h3>Monitoring</h3>
-        <ul>
-          <li><strong>Uptime Kuma</strong> for uptime checks</li>
-          <li><strong>Prometheus and Grafana</strong> dashboards for Proxmox, the Windows servers and the switch (via SNMP)</li>
-          <li>Alerts sent to <strong>Discord</strong></li>
-        </ul>
+              <!-- Firewall -->
+              <rect class="d-node-accent" x="250" y="30" width="260" height="56" rx="10"/>
+              <g class="d-icon" transform="translate(266 47) scale(0.9)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></g>
+              <text class="d-name" x="298" y="54">Zyxel USG FLEX 200</text>
+              <text class="d-sub" x="298" y="70">Firewall · rules between VLANs</text>
 
-        <h2>What I've learned</h2>
-        <p>Starting with no Linux command-line experience, the lab has given me hands-on practice with:</p>
-        <ul>
+              <!-- Discord -->
+              <rect class="d-node" x="560" y="30" width="160" height="56" rx="10"/>
+              <g class="d-icon d-icon-2" transform="translate(576 47) scale(0.9)"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></g>
+              <text class="d-name" x="608" y="54">Discord</text>
+              <text class="d-sub" x="608" y="70">Alert notifications</text>
+
+              <!-- Managed switch -->
+              <rect class="d-node-accent" x="250" y="130" width="260" height="56" rx="10"/>
+              <g class="d-icon" transform="translate(266 147) scale(0.9)"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 12h.01M10 12h.01M14 12h.01M18 12h.01"/></g>
+              <text class="d-name" x="298" y="154">Zyxel GS1920-24</text>
+              <text class="d-sub" x="298" y="170">Managed switch · VLANs</text>
+
+              <!-- Proxmox host -->
+              <rect class="d-group" x="40" y="230" width="680" height="345" rx="14"/>
+              <g class="d-icon" transform="translate(58 243) scale(0.75)"><rect x="3" y="3" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="18" height="7" rx="1.5"/><path d="M7 6.5h.01M7 17.5h.01"/></g>
+              <text class="d-group-title" x="82" y="256">Proxmox VE host</text>
+              <text class="d-sub" x="206" y="256">HP 290 G1 SFF · i5-8500 · 32 GB RAM</text>
+
+              <!-- AD lab, isolated VLAN -->
+              <rect class="d-group-vlan" x="60" y="270" width="200" height="290" rx="10"/>
+              <text class="d-group-title d-group-title-vlan" x="75" y="292">AD lab · isolated VLAN</text>
+
+              <rect class="d-node" x="75" y="306" width="170" height="46" rx="8"/>
+              <circle cx="89" cy="329" r="3" fill="var(--accent-2)"/>
+              <text class="d-name" x="101" y="326">Domain controller</text>
+              <text class="d-sub" x="101" y="341">Active Directory</text>
+
+              <rect class="d-node" x="75" y="366" width="170" height="46" rx="8"/>
+              <circle cx="89" cy="389" r="3" fill="var(--accent-2)"/>
+              <text class="d-name" x="101" y="386">File server</text>
+              <text class="d-sub" x="101" y="401">NTFS permissions via AD groups</text>
+
+              <rect class="d-node" x="75" y="426" width="170" height="46" rx="8"/>
+              <circle cx="89" cy="449" r="3" fill="var(--accent-2)"/>
+              <text class="d-name" x="101" y="446">Windows 11 client</text>
+              <text class="d-sub" x="101" y="461">Group Policy testing</text>
+
+              <text class="d-tag d-tag-2" x="75" y="500">firewall: DNS + monitoring only</text>
+
+              <!-- Self-hosted services -->
+              <rect class="d-group" x="280" y="270" width="200" height="290" rx="10"/>
+              <text class="d-group-title" x="295" y="292">Services</text>
+
+              <rect class="d-node" x="295" y="306" width="170" height="46" rx="8"/>
+              <circle cx="309" cy="329" r="3" fill="var(--accent)"/>
+              <text class="d-name" x="321" y="326">Pi-hole</text>
+              <text class="d-sub" x="321" y="341">DNS · ad blocking · DHCP</text>
+
+              <rect class="d-node" x="295" y="366" width="170" height="46" rx="8"/>
+              <circle cx="309" cy="389" r="3" fill="var(--accent)"/>
+              <text class="d-name" x="321" y="386">Home Assistant</text>
+              <text class="d-sub" x="321" y="401">Self-hosted</text>
+
+              <rect class="d-node" x="295" y="426" width="170" height="46" rx="8"/>
+              <circle cx="309" cy="449" r="3" fill="var(--accent)"/>
+              <text class="d-name" x="321" y="446">Homarr</text>
+              <text class="d-sub" x="321" y="461">Dashboard</text>
+
+              <rect class="d-node" x="295" y="486" width="170" height="46" rx="8"/>
+              <circle cx="309" cy="509" r="3" fill="var(--accent)"/>
+              <text class="d-name" x="321" y="506">Plex</text>
+              <text class="d-sub" x="321" y="521">Media server</text>
+
+              <!-- Monitoring -->
+              <rect class="d-group" x="500" y="270" width="200" height="290" rx="10"/>
+              <text class="d-group-title" x="515" y="292">Monitoring</text>
+
+              <rect class="d-node" x="515" y="306" width="170" height="46" rx="8"/>
+              <circle cx="529" cy="329" r="3" fill="var(--accent)"/>
+              <text class="d-name" x="541" y="326">Uptime Kuma</text>
+              <text class="d-sub" x="541" y="341">Uptime checks</text>
+
+              <rect class="d-node" x="515" y="366" width="170" height="46" rx="8"/>
+              <circle cx="529" cy="389" r="3" fill="var(--accent)"/>
+              <text class="d-name" x="541" y="386">Prometheus</text>
+              <text class="d-sub" x="541" y="401">Metrics · Proxmox, Windows, SNMP</text>
+
+              <rect class="d-node" x="515" y="426" width="170" height="46" rx="8"/>
+              <circle cx="529" cy="449" r="3" fill="var(--accent)"/>
+              <text class="d-name" x="541" y="446">Grafana</text>
+              <text class="d-sub" x="541" y="461">Dashboards · alerts</text>
+            </svg>
+          </div>
+          <p class="diagram-hint" aria-hidden="true">&larr; scroll sideways to see the whole diagram &rarr;</p>
+          <figcaption>Traffic flows from the internet through the firewall and managed switch to the Proxmox host. The AD lab sits on its own isolated VLAN; the switch is monitored over SNMP and alerts go to Discord.</figcaption>
+        </figure>
+
+        <!-- =========================================================
+             SETUP, presented as a terminal-style build log.
+             Entries animate in one by one when scrolled into view.
+             ========================================================= -->
+        <h2 class="reveal">Setup</h2>
+        <div class="build-log reveal" aria-label="Lab setup">
+          <div class="build-log-bar" aria-hidden="true">
+            <span class="build-log-dots"><i></i><i></i><i></i></span>
+            <span class="build-log-title">harry@homelab: ~/lab — build log</span>
+          </div>
+          <ol class="build-log-lines">
+            <li class="log-entry">
+              <span class="log-status" aria-hidden="true">[ OK ]</span>
+              <div class="log-body">
+                <h3>Host</h3>
+                <p>An HP 290 G1 SFF with an Intel Core i5-8500, upgraded from 16&nbsp;GB to 32&nbsp;GB of RAM, running Proxmox VE. Workloads are organised into resource pools.</p>
+              </div>
+            </li>
+            <li class="log-entry">
+              <span class="log-status" aria-hidden="true">[ OK ]</span>
+              <div class="log-body">
+                <h3>Networking</h3>
+                <p>A Zyxel USG FLEX 200 firewall and a Zyxel GS1920-24 managed switch. The AD lab sits on its own isolated VLAN, with firewall rules that only allow specific traffic through, such as DNS and monitoring.</p>
+              </div>
+            </li>
+            <li class="log-entry">
+              <span class="log-status" aria-hidden="true">[ OK ]</span>
+              <div class="log-body">
+                <h3>Active Directory lab</h3>
+                <ul>
+                  <li>Domain controller</li>
+                  <li>File server with department-based NTFS permissions tied to AD security groups</li>
+                  <li>Windows 11 client for testing Group Policy, including drive mapping with item-level targeting and wallpaper / lock screen policies</li>
+                </ul>
+              </div>
+            </li>
+            <li class="log-entry">
+              <span class="log-status" aria-hidden="true">[ OK ]</span>
+              <div class="log-body">
+                <h3>Self-hosted services</h3>
+                <ul>
+                  <li><strong>Pi-hole:</strong> network-wide DNS, ad blocking and DHCP</li>
+                  <li><strong>Home Assistant</strong></li>
+                  <li><strong>Homarr</strong> dashboard</li>
+                  <li><strong>Plex</strong></li>
+                </ul>
+              </div>
+            </li>
+            <li class="log-entry">
+              <span class="log-status" aria-hidden="true">[ OK ]</span>
+              <div class="log-body">
+                <h3>Monitoring</h3>
+                <ul>
+                  <li><strong>Uptime Kuma</strong> for uptime checks</li>
+                  <li><strong>Prometheus and Grafana</strong> dashboards for Proxmox, the Windows servers and the switch (via SNMP)</li>
+                  <li>Alerts sent to <strong>Discord</strong></li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+          <p class="log-prompt" aria-hidden="true"><span class="ps">harry@homelab:~$</span><span class="log-cursor"></span></p>
+        </div>
+
+        <h2 class="reveal">What I've learned</h2>
+        <p class="reveal">Starting with no Linux command-line experience, the lab has given me hands-on practice with:</p>
+        <ul class="reveal">
           <li>Working on the Linux command line</li>
           <li>Segmenting a network with VLANs and writing firewall rules that only allow what's needed</li>
           <li>Active Directory, group-based NTFS permissions and Group Policy</li>
           <li>Building monitoring and alerting with SNMP, Prometheus and Grafana</li>
         </ul>
 
-        <h2>Next steps</h2>
-        <ul>
+        <h2 class="reveal">Next steps</h2>
+        <ul class="reveal">
           <li>Tidy up the network design</li>
           <li>Keep expanding the AD lab</li>
         </ul>
       </div>
 
-      <footer class="article-foot">
+      <footer class="article-foot reveal">
         <a class="btn btn-ghost" href="../index.html#projects">&larr; Back to projects</a>
-        <a class="btn btn-primary" href="../index.html#contact">Get in touch</a>
+        <a class="btn btn-primary" href="../index.html#contact">Get in touch <span class="arrow" aria-hidden="true">&rarr;</span></a>
       </footer>
     </article>
   </main>
@@ -143,5 +321,9 @@
       </ul>
     </div>
   </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
 </body>
 </html>

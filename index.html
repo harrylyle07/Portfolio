@@ -6,22 +6,25 @@
 
   <!-- =========================================================
        SEO & SOCIAL META
-       EDIT: if you use a custom domain, replace every
-       "https://harrylyle07.github.io/Portfolio/" below with it.
+       The site lives at the root of harrylyle07.github.io.
+       EDIT: if you move to a custom domain, replace every
+       "https://harrylyle07.github.io/" below with it.
        ========================================================= -->
   <title>Harry | Tier I Support Analyst &amp; Dispatcher</title>
   <meta name="description" content="Harry – Tier I Support Analyst &amp; Dispatcher at Offsite Cloud, an Essex MSP, with over two years' hands-on experience in multi-tenant Microsoft 365, Intune, Entra ID and Windows support. Working towards 2nd line.">
   <meta name="author" content="Harry">
-  <meta name="theme-color" content="#0b1120">
-  <link rel="canonical" href="https://harrylyle07.github.io/Portfolio/">
+  <meta name="theme-color" content="#090d16">
+  <link rel="canonical" href="https://harrylyle07.github.io/">
 
   <!-- Open Graph (LinkedIn, Facebook, Slack, Teams, etc.) -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Harry – Tier I Support Analyst &amp; Dispatcher">
   <meta property="og:title" content="Harry | Tier I Support Analyst &amp; Dispatcher">
   <meta property="og:description" content="Over two years' MSP experience across multiple Microsoft 365 tenants, Windows endpoints and a Proxmox homelab. Ready for 2nd line.">
-  <meta property="og:url" content="https://harrylyle07.github.io/Portfolio/">
-  <meta property="og:image" content="https://harrylyle07.github.io/Portfolio/assets/og-image.png">
+  <meta property="og:url" content="https://harrylyle07.github.io/">
+  <meta property="og:image" content="https://harrylyle07.github.io/assets/og-image.png">
+  <meta property="og:image:secure_url" content="https://harrylyle07.github.io/assets/og-image.png">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Harry – Tier I Support Analyst &amp; Dispatcher portfolio">
@@ -31,17 +34,21 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Harry | Tier I Support Analyst &amp; Dispatcher">
   <meta name="twitter:description" content="Over two years' MSP experience across multiple Microsoft 365 tenants, Windows endpoints and a Proxmox homelab. Ready for 2nd line.">
-  <meta name="twitter:image" content="https://harrylyle07.github.io/Portfolio/assets/og-image.png">
+  <meta name="twitter:image" content="https://harrylyle07.github.io/assets/og-image.png">
+  <meta name="twitter:image:alt" content="Harry – Tier I Support Analyst &amp; Dispatcher portfolio">
 
-  <!-- Favicon -->
+  <!-- Favicons & app icons -->
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/favicon-16.png" sizes="16x16" type="image/png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="assets/site.webmanifest">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Apply saved theme before paint to avoid a flash -->
   <script>
@@ -55,10 +62,29 @@
   </script>
 
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/print.css" media="print">
   <script src="js/main.js" defer></script>
+
+  <!-- Structured data for search engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Harry",
+    "jobTitle": "Tier I Support Analyst & Dispatcher",
+    "worksFor": { "@type": "Organization", "name": "Offsite Cloud" },
+    "url": "https://harrylyle07.github.io/",
+    "sameAs": [
+      "https://www.linkedin.com/in/harry-lyle-868854328/",
+      "https://github.com/harrylyle07"
+    ],
+    "knowsAbout": ["Microsoft 365", "Exchange Online", "Entra ID", "Intune", "SharePoint", "Windows 10/11", "PowerShell", "Proxmox VE"]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
 
   <!-- =========================================================
        HEADER / NAVIGATION
@@ -100,7 +126,7 @@
     <section class="hero" id="hero" aria-labelledby="hero-title">
       <div class="hero-bg" aria-hidden="true">
         <div class="hero-grid"></div>
-        <!-- Animated network background (desktop only; drawn by js/main.js) -->
+        <!-- Animated network background (desktop + mouse only; drawn by js/main.js) -->
         <canvas class="hero-network"></canvas>
         <div class="hero-glow hero-glow-1"></div>
         <div class="hero-glow hero-glow-2"></div>
@@ -115,8 +141,8 @@
              sizer spans, which reserve space so the layout doesn't jump).
              The first phrase is what shows without JavaScript / with reduced motion. -->
         <h1 class="hero-title reveal" id="hero-title">
-          <span class="hero-hello">Hi, I'm Harry.</span>
-          <span class="typed-wrap accent-text">
+          <span class="hero-hello">Hi, I'm <span class="shimmer">Harry</span>.</span>
+          <span class="typed-wrap">
             <span class="visually-hidden">Tier I Support Analyst &amp; Dispatcher</span>
             <span class="typed-sizer" aria-hidden="true">
               <span>Tier I Support Analyst &amp; Dispatcher</span>
@@ -131,7 +157,7 @@
           owning issues from first contact to fix, and ready to take on 2nd line.
         </p>
         <div class="hero-actions reveal">
-          <a class="btn btn-primary" href="#projects">View projects</a>
+          <a class="btn btn-primary" href="#projects">View projects <span class="arrow" aria-hidden="true">&rarr;</span></a>
           <a class="btn btn-ghost" href="#contact">Contact me</a>
         </div>
         <!-- Stats row. Numbers inside data-count="…" count up on scroll. Only use real numbers. -->
@@ -295,7 +321,7 @@
          Each project card links to a write-up in /projects/.
          To add one: copy projects/_template.html, then copy a card below.
          ========================================================= -->
-    <section class="section" id="projects" aria-labelledby="projects-title">
+    <section class="section section-glow" id="projects" aria-labelledby="projects-title">
       <div class="container">
         <header class="section-head reveal">
           <p class="eyebrow">03 / Projects &amp; Lab</p>
@@ -343,7 +369,9 @@
           <h2 class="section-title" id="experience-title">Experience</h2>
         </header>
 
+        <!-- The line "draws" itself as you scroll (js/main.js sets --draw on the list) -->
         <ol class="timeline">
+
           <!-- Timeline entry: current role -->
           <li class="timeline-item reveal">
             <span class="timeline-dot" aria-hidden="true"></span>
@@ -377,6 +405,7 @@
          6. CERTIFICATIONS & QUALIFICATIONS
          To use a real badge image later, replace the
          <div class="cert-badge">…</div> with an <img> (include alt text).
+         data-print-url is what prints under each card (see css/print.css).
          ========================================================= -->
     <section class="section" id="certifications" aria-labelledby="certs-title">
       <div class="container">
@@ -389,7 +418,7 @@
           <!-- Cert: MS-900. The whole card links to the Microsoft Learn credential. -->
           <article class="card cert-card cert-card-linked reveal">
             <div class="cert-badge" aria-hidden="true"><span>MS-900</span></div>
-            <div class="cert-body">
+            <div class="cert-body" data-print-url="learn.microsoft.com/api/credentials/share/en-us/HarryLyle07/47EF6E8900F0A8FF">
               <h3><a class="card-link" href="https://learn.microsoft.com/api/credentials/share/en-us/HarryLyle07/47EF6E8900F0A8FF?sharingId=82D4ED4172030532" target="_blank" rel="noopener noreferrer">Microsoft 365 Certified: Fundamentals<span class="visually-hidden"> (view credential on Microsoft Learn, opens in a new tab)</span></a></h3>
               <p class="cert-issuer">Microsoft · Earned <time datetime="2025-10-14">14 October 2025</time></p>
               <span class="read-more" aria-hidden="true">View credential <span class="arrow">&rarr;</span></span>
@@ -399,7 +428,7 @@
           <!-- Qualification: Level 3. The whole card links to the City & Guilds digital credential. -->
           <article class="card cert-card cert-card-linked reveal">
             <div class="cert-badge cert-badge-alt" aria-hidden="true"><span>L3</span></div>
-            <div class="cert-body">
+            <div class="cert-body" data-print-url="digitalcredentials.cityandguilds.com/b5383aba-2abe-4e74-896e-ac8e33bf4072">
               <h3><a class="card-link" href="https://digitalcredentials.cityandguilds.com/b5383aba-2abe-4e74-896e-ac8e33bf4072#acc.02UgBwmb" target="_blank" rel="noopener noreferrer">Level 3 Digital Support Technician<span class="visually-hidden"> (view credential on City &amp; Guilds, opens in a new tab)</span></a></h3>
               <p class="cert-issuer">City &amp; Guilds · Achieved with Distinction · <time datetime="2026-04">April 2026</time></p>
               <span class="read-more" aria-hidden="true">View credential <span class="arrow">&rarr;</span></span>
@@ -413,9 +442,10 @@
          7. CONTACT
          Contact is via LinkedIn only (no email, phone or form).
          ========================================================= -->
-    <section class="section section-alt" id="contact" aria-labelledby="contact-title">
+    <section class="section section-alt section-glow" id="contact" aria-labelledby="contact-title">
       <div class="container">
         <div class="contact-card card reveal">
+          <div class="contact-glow" aria-hidden="true"></div>
           <p class="eyebrow">06 / Contact</p>
           <h2 class="section-title" id="contact-title">Let's talk</h2>
           <p class="section-intro">I'm looking for my next step into 2nd line support. If you have a role in mind or just want to connect, message me on LinkedIn.</p>
@@ -443,5 +473,9 @@
       </ul>
     </div>
   </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
 </body>
 </html>
