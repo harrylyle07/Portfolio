@@ -30,7 +30,11 @@ A personal portfolio built with plain **HTML, CSS and vanilla JavaScript**. Ther
 │   ├── icon-192.png            # Web app manifest icons
 │   ├── icon-512.png
 │   ├── site.webmanifest        # Web app manifest
-│   └── og-image.png            # 1200×630 link-preview image (LinkedIn, Teams, etc.)
+│   ├── og-image.png            # 1200×630 link-preview image (LinkedIn, Teams, etc.)
+│   └── photos/                 # Hero/About/Projects/homelab images (currently rendered
+│       ├── switch-cables.jpg   # illustrations; swap for your own lab photos, same sizes)
+│       ├── switch-ports.jpg
+│       └── rack-dark.jpg
 └── README.md
 ```
 
@@ -47,11 +51,11 @@ Each section is wrapped in a big comment banner such as `<!-- 3. SKILLS -->`.
 | Section | What to edit |
 |---|---|
 | **Meta / SEO** (`<head>`) | Title, description, canonical and Open Graph tags. The site lives at the root of `harrylyle07.github.io`; if you move to a custom domain, replace `https://harrylyle07.github.io/` everywhere (including `sitemap.xml`, `robots.txt` and `assets/site.webmanifest`). |
-| **1. Hero** | Heading, one-line pitch and the "Open to 2nd line support roles" status pill. The name sits inside `<span class="shimmer">` for the gradient shimmer. **Typing phrases:** edit the `data-phrases` list *and* the matching `<span>`s inside `.typed-sizer` (these reserve space so the layout doesn't jump). **Stats row:** numbers inside `<span data-count="2">2</span>` count up when scrolled into view. Add a stat by copying an `<li class="stat">`. The row is laid out for three; if you change the number, update `grid-template-columns` on `.hero-stats` in `css/styles.css`. |
+| **1. Hero** | Heading, one-line pitch and the status pill. The right-hand **lab status console** (`<div class="hero-visual">`) is decorative: its rows are the homelab's real service names and hardware, with no made-up numbers. Edit the rows if the lab changes; it's hidden below 980px. The photo behind it is `assets/photos/switch-cables.jpg`. ("Tier I Support Analyst · building towards 2nd line"). The name sits inside `<span class="shimmer">` for the gradient shimmer. **Typing phrases:** edit the `data-phrases` list *and* the matching `<span>`s inside `.typed-sizer` (these reserve space so the layout doesn't jump). **Stats row:** numbers inside `<span data-count="2">2</span>` count up when scrolled into view. Add a stat by copying an `<li class="stat">`. The row is laid out for three; if you change the number, update `grid-template-columns` on `.hero-stats` in `css/styles.css`. |
 | **Technology strip** | The `<ul class="marquee-list">` just after the hero. Add or remove `<li>` items; the script duplicates them for the seamless loop. |
-| **2. About** | The three paragraphs. |
+| **2. About** | The three paragraphs, plus the illustration card on the right (`assets/photos/switch-ports.jpg`, 1600×1067). Replace it with a photo of your own lab and update the `alt` text and the caption. |
 | **3. Skills** | One `<article class="card skill-card">` per group. Add or remove `<li>` items. The **Networking & Security** and **Scripting** items are suggestions, so keep only what you're happy to talk about in an interview. |
-| **4. Projects** | Currently a single wide **featured card** for the Proxmox homelab (`<article class="card project-card project-featured">`). The left side is the summary and tags; the right-hand `<dl class="featured-specs">` is an at-a-glance spec list. Keep it in sync with the write-up. |
+| **4. Projects** | The cover image is `assets/photos/rack-dark.jpg` (1600×900). Currently a single wide **featured card** for the Proxmox homelab (`<article class="card project-card project-featured">`). The left side is the summary and tags; the right-hand `<dl class="featured-specs">` is an at-a-glance spec list. Keep it in sync with the write-up. |
 | **5. Experience** | One `<li class="timeline-item">` per entry, newest first. The vertical line draws itself as you scroll. |
 | **6. Certifications** | One `<article class="card cert-card">` per cert. To make a whole card link to a credential, add the `cert-card-linked` class and put the link on the heading with `class="card-link"`. `data-print-url` on `.cert-body` is the short URL that prints under the card. To use a real badge image, replace the `<div class="cert-badge">…</div>` with `<img src="assets/your-badge.png" alt="Microsoft 365 Certified: Fundamentals badge" width="72" height="72">`. |
 | **7. Contact** | LinkedIn button (contact is LinkedIn only: no email, phone or form). |
@@ -73,6 +77,10 @@ Everything visual is a CSS variable at the top of `css/styles.css`:
 4. **Add a card on the home page:** the Projects section is laid out for one featured project. To show several, wrap the cards in `<div class="card-grid projects-grid">…</div>` (a responsive grid). Then either keep the homelab as `project-featured` above the grid, or remove that class and the `<dl class="featured-specs">` to make it a normal card. Each normal card is an `<article class="card project-card reveal" data-tilt>` with an icon, `project-kind` label, heading link (`href="projects/your-file.html"`), description, tags and a `read-more` line.
 5. **Add it to `sitemap.xml`.**
 6. **Screenshots (optional):** put images in `assets/projects/` and always include descriptive `alt` text plus `width` and `height` (so the layout doesn't shift) and `loading="lazy"`. Remove or blur client names, tenant names, email addresses and anything else that identifies a client.
+
+### Images
+
+The three images in `assets/photos/` are original illustrations rendered for the site (a managed switch and a rack) because stock photos couldn't be fetched when it was built. They're labelled "Illustration" on the page. Real photos of your own HP 290, Zyxel switch and firewall will always beat them with a recruiter: export at the same pixel sizes, keep the `width`/`height` attributes, write a real `alt`, and change the caption.
 
 ### The homelab architecture diagram
 

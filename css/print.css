@@ -56,6 +56,10 @@ body::before { display: none; } /* noise */
 .nav-toggle,
 .hero-bg,
 .hero-network,
+.hero-visual,
+.photo-card,
+.featured-cover,
+.article-banner,
 .hero-actions,
 .marquee,
 .back-to-top,
@@ -85,6 +89,11 @@ body::before { display: none; } /* noise */
 .container { max-width: none; padding: 0; }
 
 /* Hero → CV header */
+.hero-inner { display: block; }
+.about-grid { grid-template-columns: 1fr; }
+.skills-grid { grid-template-columns: repeat(3, 1fr); }
+.skill-card-wide { grid-column: auto; }
+.project-featured { grid-template-areas: "main specs"; }
 .hero { min-height: 0; margin: 0; padding: 0 0 6mm; display: block; }
 .hero-status { border: 0; padding: 0; margin: 0 0 2mm; background: none; font-size: 9pt; color: #4b5563; }
 .status-dot { display: none; }
