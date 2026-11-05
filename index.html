@@ -13,7 +13,9 @@
   <title>Harry | Tier I Support Analyst &amp; Dispatcher</title>
   <meta name="description" content="Harry – Tier I Support Analyst &amp; Dispatcher at Offsite Cloud, an Essex MSP, with over two years' hands-on experience in multi-tenant Microsoft 365, Intune, Entra ID and Windows support. Working towards 2nd line.">
   <meta name="author" content="Harry">
-  <meta name="theme-color" content="#090d16">
+  <meta name="theme-color" content="#070a12" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f8fc" media="(prefers-color-scheme: light)">
+  <meta name="color-scheme" content="dark light">
   <link rel="canonical" href="https://harrylyle07.github.io/">
 
   <!-- Open Graph (LinkedIn, Facebook, Slack, Teams, etc.) -->
@@ -45,25 +47,32 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="assets/site.webmanifest">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Fonts are self-hosted (assets/fonts). Preload the two that paint first. -->
+  <link rel="preload" href="assets/fonts/space-grotesk-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 
-  <!-- Apply saved theme before paint to avoid a flash -->
+  <!-- Before paint: mark JS available, restore the saved theme, and skip the
+       boot loader if it has already run this session. The safety timer makes
+       sure content is never left hidden if a script fails to load. -->
   <script>
     (function () {
-      document.documentElement.classList.add('js');
+      var d = document.documentElement;
+      d.classList.add('js');
       try {
         var t = localStorage.getItem('theme');
-        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+        if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+        if (sessionStorage.getItem('booted')) d.classList.add('booted');
       } catch (e) {}
+      window.__revealSafety = setTimeout(function () { d.classList.add('reveal-all'); }, 3500);
     })();
   </script>
+  <style>.reveal-all [data-reveal],.reveal-all [data-hero-in]{opacity:1!important;translate:none!important}</style>
 
-  <link rel="stylesheet" href="css/styles.css?v=2">
-  <link rel="stylesheet" href="css/print.css?v=2" media="print">
-  <script src="js/main.js?v=2" defer></script>
+  <link rel="stylesheet" href="css/styles.css?v=3">
+  <link rel="stylesheet" href="css/print.css?v=3" media="print">
+  <script src="js/vendor/gsap.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js?v=3" defer></script>
 
   <!-- Structured data for search engines -->
   <script type="application/ld+json">
@@ -74,16 +83,58 @@
     "jobTitle": "Tier I Support Analyst & Dispatcher",
     "worksFor": { "@type": "Organization", "name": "Offsite Cloud" },
     "url": "https://harrylyle07.github.io/",
+    "image": "https://harrylyle07.github.io/assets/og-image.png",
     "sameAs": [
       "https://www.linkedin.com/in/harry-lyle-868854328/",
       "https://github.com/harrylyle07"
     ],
-    "knowsAbout": ["Microsoft 365", "Exchange Online", "Entra ID", "Intune", "SharePoint", "Windows 10/11", "PowerShell", "Proxmox VE"]
+    "knowsAbout": ["Microsoft 365", "Exchange Online", "Entra ID", "Intune", "SharePoint", "Windows 10/11", "PowerShell", "Proxmox VE", "Active Directory", "Group Policy", "VLANs"],
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Microsoft 365 Certified: Fundamentals (MS-900)",
+        "credentialCategory": "certification",
+        "recognizedBy": { "@type": "Organization", "name": "Microsoft" },
+        "url": "https://learn.microsoft.com/api/credentials/share/en-us/HarryLyle07/47EF6E8900F0A8FF?sharingId=82D4ED4172030532"
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Level 3 Digital Support Technician",
+        "credentialCategory": "qualification",
+        "recognizedBy": { "@type": "Organization", "name": "City & Guilds" },
+        "url": "https://digitalcredentials.cityandguilds.com/b5383aba-2abe-4e74-896e-ac8e33bf4072#acc.02UgBwmb"
+      }
+    ]
   }
   </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- =========================================================
+       BOOT LOADER (terminal-style intro, first visit per session only,
+       skippable; removed entirely for returning visitors and no-JS)
+       ========================================================= -->
+  <div class="boot" id="boot" role="status" aria-live="polite" aria-label="Loading">
+    <div class="boot-window">
+      <div class="boot-bar" aria-hidden="true">
+        <span class="win-dots"><i></i><i></i><i></i></span>
+        <span class="boot-title">harry@portfolio: ~ — boot</span>
+      </div>
+      <ol class="boot-lines" aria-hidden="true">
+        <li class="boot-line"><span class="b-status">[ .. ]</span><span>Initialising portfolio</span></li>
+        <li class="boot-line"><span class="b-status">[ .. ]</span><span>Loading modules: m365, intune, entra, proxmox</span></li>
+        <li class="boot-line"><span class="b-status">[ .. ]</span><span>Mounting homelab</span></li>
+        <li class="boot-line"><span class="b-status">[ .. ]</span><span>Ready</span></li>
+        <li class="boot-line boot-prompt"><span class="b-ps">harry@portfolio:~$</span><span class="boot-cursor"></span></li>
+      </ol>
+      <div class="boot-foot">
+        <span class="boot-progress" aria-hidden="true"><i></i></span>
+        <button class="boot-skip" type="button">Skip <span aria-hidden="true">(Esc)</span></button>
+      </div>
+    </div>
+  </div>
+
   <div class="scroll-progress" aria-hidden="true"></div>
 
   <!-- =========================================================
@@ -97,10 +148,6 @@
       </a>
 
       <nav class="site-nav" aria-label="Main">
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
-          <span class="visually-hidden">Menu</span>
-          <span class="nav-toggle-bar" aria-hidden="true"></span>
-        </button>
         <ul class="nav-menu" id="nav-menu">
           <li><a href="#about">About</a></li>
           <li><a href="#skills">Skills</a></li>
@@ -111,10 +158,20 @@
         </ul>
       </nav>
 
-      <button class="theme-toggle" type="button" aria-label="Switch to light mode">
-        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
+      <div class="header-actions">
+        <button class="icon-btn palette-btn" type="button" data-palette-open aria-label="Open command palette" aria-keyshortcuts="Control+K Meta+K">
+          <span class="palette-btn-label">Jump to</span>
+          <span class="kbd" aria-hidden="true"><span data-mod-key>Ctrl</span> K</span>
+        </button>
+        <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+          <span class="visually-hidden">Menu</span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -125,69 +182,66 @@
          ========================================================= -->
     <section class="hero" id="hero" aria-labelledby="hero-title">
       <div class="hero-bg" aria-hidden="true">
-        <div class="hero-grid"></div>
-        <!-- Animated network background (desktop + mouse only; drawn by js/main.js) -->
+        <div class="hero-grid" data-parallax="0.15"></div>
+        <!-- Animated network background, drawn by js/network.js (static frame on touch devices) -->
         <canvas class="hero-network"></canvas>
-        <div class="hero-glow hero-glow-1"></div>
-        <div class="hero-glow hero-glow-2"></div>
+        <div class="hero-glow hero-glow-1" data-parallax="0.3"></div>
+        <div class="hero-glow hero-glow-2" data-parallax="0.2"></div>
       </div>
 
       <div class="container hero-inner">
-       <div class="hero-copy">
-        <p class="hero-status reveal">
-          <span class="status-dot" aria-hidden="true"></span>
-          Tier I Support &middot; building towards 2nd line
-        </p>
-        <!-- Typing effect: edit the phrases in data-phrases (and the matching
-             sizer spans, which reserve space so the layout doesn't jump).
-             The first phrase is what shows without JavaScript / with reduced motion. -->
-        <h1 class="hero-title reveal" id="hero-title">
-          <span class="hero-hello">Hi, I'm <span class="shimmer">Harry</span>.</span>
-          <span class="typed-wrap">
-            <span class="visually-hidden">Tier I Support Analyst &amp; Dispatcher</span>
-            <span class="typed-sizer" aria-hidden="true">
-              <span>Tier I Support Analyst &amp; Dispatcher</span>
-              <span>Microsoft 365 Administrator</span>
-              <span>Homelab Enthusiast</span>
+        <div class="hero-copy">
+          <p class="hero-status" data-hero-in>
+            <span class="status-dot" aria-hidden="true"></span>
+            Tier I Support &middot; building towards 2nd line
+          </p>
+          <!-- Typing effect: edit the phrases in data-phrases (and the matching
+               sizer spans, which reserve space so the layout doesn't jump).
+               The first phrase is what shows without JavaScript / with reduced motion. -->
+          <h1 class="hero-title" id="hero-title" data-hero-in>
+            <span class="hero-hello"><span data-scramble>Hi, I'm</span> <span class="hero-name gradient-text" data-scramble>Harry</span>.</span>
+            <span class="typed-wrap">
+              <span class="visually-hidden">Tier I Support Analyst &amp; Dispatcher</span>
+              <span class="typed-sizer" aria-hidden="true">
+                <span>Tier I Support Analyst &amp; Dispatcher</span>
+                <span>Microsoft 365 Administrator</span>
+                <span>Homelab Enthusiast</span>
+              </span>
+              <span class="typed-line" aria-hidden="true"><span class="typed" data-phrases='["Tier I Support Analyst &amp; Dispatcher", "Microsoft 365 Administrator", "Homelab Enthusiast"]'>Tier I Support Analyst &amp; Dispatcher</span><span class="typed-caret"></span></span>
             </span>
-            <span class="typed-line" aria-hidden="true"><span class="typed" data-phrases='["Tier I Support Analyst &amp; Dispatcher", "Microsoft 365 Administrator", "Homelab Enthusiast"]'>Tier I Support Analyst &amp; Dispatcher</span><span class="typed-caret"></span></span>
-          </span>
-        </h1>
-        <p class="hero-pitch reveal">
-          Over two years of hands-on MSP experience across multiple Microsoft&nbsp;365 tenants,
-          owning issues from first contact to fix, and building towards 2nd line.
-        </p>
-        <div class="hero-actions reveal">
-          <a class="btn btn-primary" href="#projects">View projects <span class="arrow" aria-hidden="true">&rarr;</span></a>
-          <a class="btn btn-ghost" href="#contact">Contact me</a>
+          </h1>
+          <p class="hero-pitch" data-hero-in>
+            Over two years of hands-on MSP experience across multiple Microsoft&nbsp;365 tenants,
+            owning issues from first contact to fix, and building towards 2nd line.
+          </p>
+          <div class="hero-actions" data-hero-in>
+            <a class="btn btn-primary" href="#projects" data-magnetic>View projects <span class="arrow" aria-hidden="true">&rarr;</span></a>
+            <a class="btn btn-ghost" href="#contact" data-magnetic>Contact me</a>
+          </div>
+          <!-- Stats row. Numbers inside data-count="…" count up on scroll. Only use real numbers. -->
+          <ul class="hero-stats" aria-label="At a glance" data-hero-in>
+            <li class="stat">
+              <span class="stat-value"><span data-count="2">2</span>+</span>
+              <span class="stat-label">Years in IT support</span>
+            </li>
+            <li class="stat">
+              <span class="stat-value">MS-900</span>
+              <span class="stat-label">Microsoft 365 certified</span>
+            </li>
+            <li class="stat">
+              <span class="stat-value">Distinction</span>
+              <span class="stat-label">Level 3 Digital Support Technician</span>
+            </li>
+          </ul>
         </div>
-        <!-- Stats row. Numbers inside data-count="…" count up on scroll. Only use real numbers. -->
-        <ul class="hero-stats reveal" aria-label="At a glance">
-          <li class="stat">
-            <span class="stat-value"><span data-count="2">2</span>+</span>
-            <span class="stat-label">Years in IT support</span>
-          </li>
-          <li class="stat">
-            <span class="stat-value">MS-900</span>
-            <span class="stat-label">Microsoft 365 certified</span>
-          </li>
-          <li class="stat">
-            <span class="stat-value">Distinction</span>
-            <span class="stat-label">Level 3 Digital Support Technician</span>
-          </li>
-        </ul>
-       </div>
 
         <!-- Lab status console: a decorative dashboard built from the homelab facts
              (service names and hardware only; no made-up numbers). Hidden from
              screen readers; the same facts are in the Projects section. -->
-        <div class="hero-visual reveal" aria-hidden="true">
-          <figure class="hero-photo">
-            <img src="assets/photos/switch-cables.jpg" alt="" width="1600" height="1067" fetchpriority="high" decoding="async">
-          </figure>
-          <div class="console card" data-tilt data-tilt-max="3">
+        <div class="hero-visual" aria-hidden="true" data-hero-in>
+          <div class="console card" data-tilt data-tilt-max="4">
             <div class="console-bar">
-              <span class="build-log-dots"><i></i><i></i><i></i></span>
+              <span class="win-dots"><i></i><i></i><i></i></span>
               <span class="console-title">homelab · status</span>
               <span class="console-live"><i></i>live</span>
             </div>
@@ -233,34 +287,15 @@
               <span class="console-foot-text">Zyxel USG FLEX 200 · GS1920-24</span>
               <span class="c-tag">VLAN isolated</span>
             </div>
+            <div class="console-badges">
+              <span class="c-badge"><span class="chip-icon">&#10003;</span>MS-900 certified</span>
+              <span class="c-badge"><span class="chip-icon">&#9733;</span>Level 3 · Distinction</span>
+            </div>
           </div>
-          <div class="hero-chip hero-chip-1"><span class="chip-icon">&#10003;</span>MS-900 certified</div>
-          <div class="hero-chip hero-chip-2"><span class="chip-icon">&#9733;</span>Level 3 · Distinction</div>
         </div>
       </div>
-    </section>
 
-    <!-- =========================================================
-         TECHNOLOGY STRIP (scrolls slowly; pauses on hover)
-         Add/remove <li> items here. The JS duplicates them for the loop.
-         ========================================================= -->
-    <section class="marquee" aria-label="Technologies I work with">
-      <div class="marquee-track">
-        <ul class="marquee-list">
-          <li>Microsoft 365</li>
-          <li>Exchange Online</li>
-          <li>Entra ID</li>
-          <li>Intune</li>
-          <li>SharePoint</li>
-          <li>Windows 10/11</li>
-          <li>PowerShell</li>
-          <li>Proxmox VE</li>
-          <li>Virtual machines</li>
-          <li>Containers</li>
-          <li>Networking</li>
-          <li>Helpdesk &amp; escalations</li>
-        </ul>
-      </div>
+      <div class="hero-scroll" aria-hidden="true"><span>scroll</span><i></i></div>
     </section>
 
     <!-- =========================================================
@@ -268,13 +303,13 @@
          ========================================================= -->
     <section class="section" id="about" aria-labelledby="about-title">
       <div class="container">
-        <header class="section-head reveal" data-num="01">
+        <header class="section-head" data-reveal>
           <p class="eyebrow">01 / About</p>
-          <h2 class="section-title" id="about-title">About me</h2>
+          <h2 class="section-title" id="about-title" data-decode>About me</h2>
         </header>
 
         <div class="about-grid">
-          <div class="about-text reveal">
+          <div class="about-text" data-reveal>
             <p>
               I'm a Tier I Support Analyst &amp; Dispatcher at Offsite Cloud, a managed service provider in Essex, where I've spent
               over two years supporting a range of client businesses. Day to day I administer
@@ -292,33 +327,73 @@
             </p>
           </div>
 
-          <!-- Illustration card. EDIT: swap for a photo of your own lab when you have one (keep the width/height and update the alt text). -->
-          <figure class="photo-card card reveal" data-tilt data-tilt-max="3">
-            <img src="assets/photos/switch-ports.jpg" alt="Illustration of a managed network switch with cables plugged into its ports" width="1600" height="1067" loading="lazy" decoding="async">
-            <figcaption>
-              <span class="photo-label">Networking &amp; VLANs</span>
-              <span class="photo-credit">Illustration</span>
-            </figcaption>
-          </figure>
+          <!-- Profile card: a terminal-styled summary of the facts in the paragraphs above. -->
+          <aside class="card profile-card" data-tilt data-tilt-max="3" data-reveal aria-label="Profile summary">
+            <div class="console-bar" aria-hidden="true">
+              <span class="win-dots"><i></i><i></i><i></i></span>
+              <span class="console-title">harry@portfolio: ~</span>
+            </div>
+            <div class="profile-body">
+              <p class="profile-cmd" aria-hidden="true"><span class="ps">$</span>whoami <strong>--verbose</strong></p>
+              <dl class="profile-rows">
+                <div><dt>name</dt><dd><strong>Harry</strong></dd></div>
+                <div><dt>role</dt><dd>Tier I Support Analyst &amp; Dispatcher</dd></div>
+                <div><dt>company</dt><dd>Offsite Cloud · Managed service provider, Essex</dd></div>
+                <div><dt>since</dt><dd>July 2024</dd></div>
+                <div><dt>stack</dt><dd>Microsoft 365 · Exchange Online · Entra ID · Intune · SharePoint · Windows 10/11</dd></div>
+                <div><dt>homelab</dt><dd>Proxmox VE · since July 2026</dd></div>
+                <div><dt>goal</dt><dd class="v-accent">working towards 2nd line</dd></div>
+              </dl>
+            </div>
+            <p class="profile-foot" aria-hidden="true"><span class="ps">harry@portfolio:~$</span><span class="log-cursor"></span></p>
+          </aside>
         </div>
       </div>
     </section>
 
     <!-- =========================================================
          3. SKILLS
-         Each card = one group. Add/remove <li> items freely.
+         Two marquee rows (scrolling opposite ways, paused on hover),
+         then one card per skill group. Add/remove <li> items freely.
          ========================================================= -->
     <section class="section section-alt" id="skills" aria-labelledby="skills-title">
       <div class="container">
-        <header class="section-head reveal" data-num="02">
+        <header class="section-head" data-reveal>
           <p class="eyebrow">02 / Skills</p>
-          <h2 class="section-title" id="skills-title">What I work with</h2>
+          <h2 class="section-title" id="skills-title" data-decode>What I work with</h2>
           <p class="section-intro">The tools and platforms I use day to day, and the ones I'm building depth in through my homelab.</p>
         </header>
 
+        <div class="marquee-group" aria-label="Technologies I work with" data-reveal>
+          <div class="marquee">
+            <div class="marquee-track">
+              <ul class="marquee-list">
+                <li>Microsoft 365</li>
+                <li>Exchange Online</li>
+                <li>Entra ID</li>
+                <li>Intune</li>
+                <li>SharePoint</li>
+                <li>Windows 10/11</li>
+              </ul>
+            </div>
+          </div>
+          <div class="marquee marquee-reverse">
+            <div class="marquee-track">
+              <ul class="marquee-list">
+                <li>PowerShell</li>
+                <li>Proxmox VE</li>
+                <li>Virtual machines</li>
+                <li>Containers</li>
+                <li>Networking</li>
+                <li>Helpdesk &amp; escalations</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <div class="card-grid skills-grid">
           <!-- Skill group: Microsoft 365 & Identity (wide card) -->
-          <article class="card skill-card skill-card-wide reveal" data-tilt>
+          <article class="card skill-card skill-card-wide" data-tilt data-reveal>
             <div class="card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5l-8-3z"/><circle cx="12" cy="10" r="2.5"/><path d="M8.5 16a3.5 3.5 0 0 1 7 0"/></svg>
             </div>
@@ -333,7 +408,7 @@
           </article>
 
           <!-- Skill group: Endpoints & Support -->
-          <article class="card skill-card reveal" data-tilt>
+          <article class="card skill-card" data-tilt data-reveal>
             <div class="card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
             </div>
@@ -346,7 +421,7 @@
           </article>
 
           <!-- Skill group: Virtualisation & Homelab -->
-          <article class="card skill-card reveal" data-tilt>
+          <article class="card skill-card" data-tilt data-reveal>
             <div class="card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="18" height="7" rx="1.5"/><path d="M7 6.5h.01M7 17.5h.01"/></svg>
             </div>
@@ -361,7 +436,7 @@
 
           <!-- Skill group: Networking & Security basics
                EDIT: these items are suggestions; keep only what you're confident discussing in an interview -->
-          <article class="card skill-card reveal" data-tilt>
+          <article class="card skill-card" data-tilt data-reveal>
             <div class="card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
             </div>
@@ -375,7 +450,7 @@
 
           <!-- Skill group: Scripting
                EDIT: add the specific modules/tasks you've used PowerShell for -->
-          <article class="card skill-card reveal" data-tilt>
+          <article class="card skill-card" data-tilt data-reveal>
             <div class="card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m6 9 3 3-3 3M12 15h6"/></svg>
             </div>
@@ -395,17 +470,17 @@
          ========================================================= -->
     <section class="section section-glow" id="projects" aria-labelledby="projects-title">
       <div class="container">
-        <header class="section-head reveal" data-num="03">
+        <header class="section-head" data-reveal>
           <p class="eyebrow">03 / Projects &amp; Lab</p>
-          <h2 class="section-title" id="projects-title">Projects &amp; lab work</h2>
+          <h2 class="section-title" id="projects-title" data-decode>Projects &amp; lab work</h2>
           <p class="section-intro">Outside work I run a Proxmox homelab to build hands-on experience with virtualisation, networking, Active Directory and monitoring.</p>
         </header>
 
         <!-- Featured project: one wide card.
              To show several projects instead, see "Adding a new project" in README.md. -->
-        <article class="card project-card project-featured reveal" data-tilt data-tilt-max="1.5">
+        <article class="card project-card project-featured" data-tilt data-tilt-max="1.5" data-reveal>
           <figure class="featured-cover" aria-hidden="true">
-            <img src="assets/photos/rack-dark.jpg" alt="" width="1600" height="900" loading="lazy" decoding="async">
+            <img src="assets/photos/rack-dark.webp" srcset="assets/photos/rack-dark-800.webp 800w, assets/photos/rack-dark.webp 1600w" sizes="(max-width: 1160px) 100vw, 1160px" alt="" width="1600" height="900" loading="lazy" decoding="async" data-parallax="0.12">
             <span class="photo-credit">Illustration</span>
           </figure>
           <div class="featured-main">
@@ -440,18 +515,18 @@
          ========================================================= -->
     <section class="section section-alt" id="experience" aria-labelledby="experience-title">
       <div class="container">
-        <header class="section-head reveal" data-num="04">
+        <header class="section-head" data-reveal>
           <p class="eyebrow">04 / Experience</p>
-          <h2 class="section-title" id="experience-title">Experience</h2>
+          <h2 class="section-title" id="experience-title" data-decode>Experience</h2>
         </header>
 
         <!-- The line "draws" itself as you scroll (js/main.js sets --draw on the list) -->
         <ol class="timeline">
 
           <!-- Timeline entry: current role -->
-          <li class="timeline-item reveal">
+          <li class="timeline-item" data-reveal data-reveal-from="left">
             <span class="timeline-dot" aria-hidden="true"></span>
-            <div class="card timeline-card">
+            <div class="card timeline-card" data-tilt data-tilt-max="2">
               <p class="timeline-date">July 2024 – Present</p>
               <h3>Tier I Support Analyst &amp; Dispatcher</h3>
               <p class="timeline-org">Offsite Cloud · Managed service provider, Essex</p>
@@ -465,9 +540,9 @@
           </li>
 
           <!-- Timeline entry: Level 3 qualification -->
-          <li class="timeline-item reveal">
+          <li class="timeline-item" data-reveal data-reveal-from="right">
             <span class="timeline-dot" aria-hidden="true"></span>
-            <div class="card timeline-card">
+            <div class="card timeline-card" data-tilt data-tilt-max="2">
               <p class="timeline-date"><time datetime="2026-04">April 2026</time></p>
               <h3>Level 3 Digital Support Technician</h3>
               <p class="timeline-org">City &amp; Guilds · Achieved with Distinction</p>
@@ -485,14 +560,15 @@
          ========================================================= -->
     <section class="section" id="certifications" aria-labelledby="certs-title">
       <div class="container">
-        <header class="section-head reveal" data-num="05">
+        <header class="section-head" data-reveal>
           <p class="eyebrow">05 / Certifications</p>
-          <h2 class="section-title" id="certs-title">Certifications &amp; qualifications</h2>
+          <h2 class="section-title" id="certs-title" data-decode>Certifications &amp; qualifications</h2>
         </header>
 
         <div class="card-grid certs-grid">
           <!-- Cert: MS-900. The whole card links to the Microsoft Learn credential. -->
-          <article class="card cert-card cert-card-linked reveal">
+          <article class="card cert-card cert-card-linked" data-tilt data-tilt-max="3" data-reveal>
+            <span class="shine" aria-hidden="true"></span>
             <div class="cert-badge" aria-hidden="true"><span>MS-900</span></div>
             <div class="cert-body" data-print-url="learn.microsoft.com/api/credentials/share/en-us/HarryLyle07/47EF6E8900F0A8FF">
               <h3><a class="card-link" href="https://learn.microsoft.com/api/credentials/share/en-us/HarryLyle07/47EF6E8900F0A8FF?sharingId=82D4ED4172030532" target="_blank" rel="noopener noreferrer">Microsoft 365 Certified: Fundamentals<span class="visually-hidden"> (view credential on Microsoft Learn, opens in a new tab)</span></a></h3>
@@ -502,7 +578,8 @@
           </article>
 
           <!-- Qualification: Level 3. The whole card links to the City & Guilds digital credential. -->
-          <article class="card cert-card cert-card-linked reveal">
+          <article class="card cert-card cert-card-linked" data-tilt data-tilt-max="3" data-reveal>
+            <span class="shine" aria-hidden="true"></span>
             <div class="cert-badge cert-badge-alt" aria-hidden="true"><span>L3</span></div>
             <div class="cert-body" data-print-url="digitalcredentials.cityandguilds.com/b5383aba-2abe-4e74-896e-ac8e33bf4072">
               <h3><a class="card-link" href="https://digitalcredentials.cityandguilds.com/b5383aba-2abe-4e74-896e-ac8e33bf4072#acc.02UgBwmb" target="_blank" rel="noopener noreferrer">Level 3 Digital Support Technician<span class="visually-hidden"> (view credential on City &amp; Guilds, opens in a new tab)</span></a></h3>
@@ -520,17 +597,19 @@
          ========================================================= -->
     <section class="section section-alt section-glow" id="contact" aria-labelledby="contact-title">
       <div class="container">
-        <div class="contact-card card reveal">
+        <div class="contact-card card" data-reveal>
           <div class="contact-glow" aria-hidden="true"></div>
+          <div class="contact-grid" aria-hidden="true"></div>
           <p class="eyebrow">06 / Contact</p>
-          <h2 class="section-title" id="contact-title">Let's talk</h2>
+          <h2 class="section-title" id="contact-title" data-decode>Let's talk</h2>
           <p class="section-intro">If you'd like to talk Microsoft 365, homelabs or anything IT support, or just want to connect, message me on LinkedIn.</p>
           <div class="contact-actions">
-            <a class="btn btn-primary" href="https://www.linkedin.com/in/harry-lyle-868854328/" target="_blank" rel="noopener noreferrer">
+            <a class="btn btn-primary" href="https://www.linkedin.com/in/harry-lyle-868854328/" target="_blank" rel="noopener noreferrer" data-magnetic>
               <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7h.01M11 17v-4a2 2 0 0 1 4 0v4M11 10v7"/></svg>
               Message me on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span>
             </a>
           </div>
+          <p class="contact-hint" aria-hidden="true"><span class="kbd"><span data-mod-key>Ctrl</span> K</span> jump anywhere &middot; <span class="kbd">`</span> terminal</p>
         </div>
       </div>
     </section>
@@ -547,11 +626,17 @@
         <li><a href="https://www.linkedin.com/in/harry-lyle-868854328/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></li>
         <li><a href="#hero">Back to top &uarr;</a></li>
       </ul>
+      <p class="footer-keys" aria-hidden="true">
+        <span><span class="kbd"><span data-mod-key>Ctrl</span> K</span> command palette</span>
+        <span><span class="kbd">`</span> terminal</span>
+        <span><span class="kbd">Esc</span> close</span>
+      </p>
     </div>
   </footer>
 
   <button class="back-to-top" type="button" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <svg class="btt-ring" viewBox="0 0 48 48" aria-hidden="true"><circle class="btt-track" cx="24" cy="24" r="22"/><circle class="btt-bar" cx="24" cy="24" r="22"/></svg>
+    <svg class="btt-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
   </button>
 </body>
 </html>

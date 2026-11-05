@@ -17,8 +17,10 @@
   <title>Project title | Harry – Tier I Support Analyst &amp; Dispatcher</title>
   <meta name="description" content="One-sentence summary of this project.">
   <meta name="author" content="Harry">
-  <meta name="theme-color" content="#090d16">
   <meta name="robots" content="noindex"> <!-- Template only: delete this line in your copy -->
+  <meta name="theme-color" content="#070a12" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f8fc" media="(prefers-color-scheme: light)">
+  <meta name="color-scheme" content="dark light">
   <link rel="canonical" href="https://harrylyle07.github.io/projects/FILE-NAME.html">
 
   <meta property="og:type" content="article">
@@ -43,23 +45,29 @@
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="manifest" href="../assets/site.webmanifest">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="../assets/fonts/space-grotesk-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 
   <script>
     (function () {
-      document.documentElement.classList.add('js');
+      var d = document.documentElement;
+      d.classList.add('js');
       try {
         var t = localStorage.getItem('theme');
-        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+        if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+        if (sessionStorage.getItem('booted')) d.classList.add('booted');
       } catch (e) {}
+      window.__revealSafety = setTimeout(function () { d.classList.add('reveal-all'); }, 3500);
     })();
   </script>
+  <style>.reveal-all [data-reveal],.reveal-all [data-hero-in]{opacity:1!important;translate:none!important}</style>
 
-  <link rel="stylesheet" href="../css/styles.css?v=2">
-  <link rel="stylesheet" href="../css/print.css?v=2" media="print">
-  <script src="../js/main.js?v=2" defer></script>
+  <link rel="stylesheet" href="../css/styles.css?v=3">
+  <link rel="stylesheet" href="../css/print.css?v=3" media="print">
+  <script src="../js/vendor/gsap.min.js" defer></script>
+  <script src="../js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="../js/main.js?v=3" defer></script>
+
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -73,10 +81,16 @@
         <span class="brand-name">Harry</span>
       </a>
       <a class="back-link" href="../index.html#projects">&larr; All projects</a>
-      <button class="theme-toggle" type="button" aria-label="Switch to light mode">
-        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
+      <div class="header-actions">
+        <button class="icon-btn palette-btn" type="button" data-palette-open aria-label="Open command palette" aria-keyshortcuts="Control+K Meta+K">
+          <span class="palette-btn-label">Jump to</span>
+          <span class="kbd" aria-hidden="true"><span data-mod-key>Ctrl</span> K</span>
+        </button>
+        <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -87,7 +101,7 @@
       <!-- =========================================================
            ARTICLE HEADER: title, summary, key facts, tags
            ========================================================= -->
-      <header class="article-head reveal">
+      <header class="article-head" data-reveal>
         <p class="eyebrow">Project write-up</p>
         <h1>Project title</h1>
         <p class="article-lead">One or two sentences: what the problem or goal was and what you achieved.</p>
@@ -108,21 +122,21 @@
            Tip for 2nd line roles: show your reasoning, ownership
            and what you'd do differently, not just the steps.
            Keep client names and identifying details anonymous.
-           Add class="reveal" to anything you want to fade in on scroll.
+           Add data-reveal to anything you want to fade in on scroll.
            ========================================================= -->
       <div class="prose">
-        <h2 class="reveal">Overview</h2>
-        <p class="reveal">Set the scene. What was the situation, who was affected and why did it matter?</p>
+        <h2 data-reveal>Overview</h2>
+        <p data-reveal>Set the scene. What was the situation, who was affected and why did it matter?</p>
 
-        <h2 class="reveal">Goals</h2>
-        <ul class="reveal">
+        <h2 data-reveal>Goals</h2>
+        <ul data-reveal>
           <li>What did you set out to achieve?</li>
           <li>Any constraints (time, budget, licensing, downtime)?</li>
         </ul>
 
-        <h2 class="reveal">Approach</h2>
-        <p class="reveal">Walk through what you did and, importantly, <em>why</em> you made each decision.</p>
-        <ol class="reveal">
+        <h2 data-reveal>Approach</h2>
+        <p data-reveal>Walk through what you did and, importantly, <em>why</em> you made each decision.</p>
+        <ol data-reveal>
           <li>Step one</li>
           <li>Step two</li>
           <li>Step three</li>
@@ -130,13 +144,14 @@
 
         <!-- Optional: code / commands. Remove if not needed.
              Never paste real tenant names, passwords or keys. -->
-        <pre class="reveal"><code># Example PowerShell
+        <pre data-reveal><code># Example PowerShell
 Get-Mailbox -ResultSize Unlimited | Select-Object DisplayName, PrimarySmtpAddress</code></pre>
 
         <!-- Optional: a terminal-style build log (see projects/proxmox-homelab.html for a full example).
              Each <li class="log-entry"> animates in one after another.
-             <div class="build-log reveal" aria-label="Steps">
-               <div class="build-log-bar" aria-hidden="true"><span class="build-log-dots"><i></i><i></i><i></i></span><span class="build-log-title">harry@homelab: ~ — build log</span></div>
+             <div class="build-log" data-reveal aria-label="Steps">
+               <div class="build-log-bar" aria-hidden="true"><span class="win-dots"><i></i><i></i><i></i></span><span class="build-log-title">harry@homelab: ~ — build log</span></div>
+               <p class="build-log-cmd" aria-hidden="true"><span class="ps">harry@homelab:~$</span><span class="typed-cmd">./build.sh --status</span></p>
                <ol class="build-log-lines">
                  <li class="log-entry"><span class="log-status" aria-hidden="true">[ OK ]</span><div class="log-body"><h3>Step name</h3><p>What happened.</p></div></li>
                </ol>
@@ -145,24 +160,24 @@ Get-Mailbox -ResultSize Unlimited | Select-Object DisplayName, PrimarySmtpAddres
 
         <!-- Optional: screenshot. Put images in /assets/projects/ and ALWAYS write alt text.
              Add width and height so the layout doesn't shift while it loads.
-             <figure class="reveal">
+             <figure data-reveal>
                <img src="../assets/projects/example.png" alt="Describe what the screenshot shows" width="1600" height="900" loading="lazy" decoding="async">
                <figcaption>Short caption</figcaption>
              </figure> -->
 
-        <h2 class="reveal">Challenges &amp; how I solved them</h2>
-        <p class="reveal">What went wrong or was harder than expected, and how did you work through it?</p>
+        <h2 data-reveal>Challenges &amp; how I solved them</h2>
+        <p data-reveal>What went wrong or was harder than expected, and how did you work through it?</p>
 
-        <h2 class="reveal">Outcome</h2>
-        <p class="reveal">What was the result? Use numbers if you can (e.g. tickets reduced, time saved, devices enrolled).</p>
+        <h2 data-reveal>Outcome</h2>
+        <p data-reveal>What was the result? Use numbers if you can (e.g. tickets reduced, time saved, devices enrolled).</p>
 
-        <h2 class="reveal">What I learned</h2>
-        <div class="callout reveal">
+        <h2 data-reveal>What I learned</h2>
+        <div class="callout" data-reveal>
           <p>Key takeaways, and what you'd do differently next time.</p>
         </div>
       </div>
 
-      <footer class="article-foot reveal">
+      <footer class="article-foot" data-reveal>
         <a class="btn btn-ghost" href="../index.html#projects">&larr; Back to projects</a>
         <a class="btn btn-primary" href="../index.html#contact">Get in touch <span class="arrow" aria-hidden="true">&rarr;</span></a>
       </footer>
@@ -181,7 +196,8 @@ Get-Mailbox -ResultSize Unlimited | Select-Object DisplayName, PrimarySmtpAddres
   </footer>
 
   <button class="back-to-top" type="button" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <svg class="btt-ring" viewBox="0 0 48 48" aria-hidden="true"><circle class="btt-track" cx="24" cy="24" r="22"/><circle class="btt-bar" cx="24" cy="24" r="22"/></svg>
+    <svg class="btt-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
   </button>
 </body>
 </html>
