@@ -32,7 +32,7 @@
 }
 
 html { scroll-behavior: auto; background: #fff; }
-body { font-size: 8.6pt; line-height: 1.28; color: #1f2937; background: #fff; }
+body { font-size: 8.4pt; line-height: 1.26; color: #1f2937; background: #fff; }
 body::before { display: none; } /* noise */
 
 *,
@@ -51,7 +51,7 @@ body::before { display: none; } /* noise */
 .hero-bg, .hero-network, .hero-visual, .hero-scroll, .hero-actions, .marquee-group, .back-to-top, .read-more,
 .contact-actions, .contact-hint, .contact-glow, .contact-grid, .footer-keys, .article-foot, .article-bg, .article-banner,
 .featured-cover, .profile-card, .diagram-hint, .diagram-legend, .diagram-tip, .build-log-bar, .build-log-cmd, .log-prompt,
-.typed-caret, .typed-sizer, .typed-line, .timeline-dot, .card-icon, .shine, .section-glow::before, .card::before, .card::after,
+.typed-caret, .typed-sizer, .typed-line, .timeline-dot, .card-icon, .shine, .section-glow::before, .card::before, .card:not(.contact-card)::after,
 .cert-badge::before, .timeline-item::before { display: none !important; }
 
 /* Reveal everything that JS would normally fade in */
@@ -62,7 +62,7 @@ body::before { display: none; } /* noise */
 .container { max-width: none; padding: 0; }
 main#main { display: grid; grid-template-columns: 1.4fr 1fr; column-gap: 4mm; align-items: start; }
 main#main > .hero, main#main > .section { grid-column: 1 / -1; }
-main#main > #experience { grid-column: 1; }
+main#main > #experience { grid-column: 1; grid-row: span 2; }
 main#main > #certifications { grid-column: 2; }
 main#main > #contact { grid-column: 2; }
 .eyebrow { display: none; }
@@ -87,7 +87,7 @@ main#main > #contact { grid-column: 2; }
 .stat-label { font-size: 7.5pt; color: #4b5563; }
 
 /* Sections */
-.section { padding: 1mm 0; background: none; border: 0; }
+.section { padding: 0.8mm 0; background: none; border: 0; }
 .section-head { margin-bottom: 0.6mm; max-width: none; }
 .eyebrow { font-size: 7.5pt; color: #0a7366; margin-bottom: 0.5mm; letter-spacing: 0.08em; }
 .eyebrow::before { background: #0a7366; }
@@ -96,7 +96,7 @@ main#main > #contact { grid-column: 2; }
 
 .about-grid { grid-template-columns: 1fr; gap: 0; }
 .about-text { column-count: 2; column-gap: 5mm; }
-.about-text p { font-size: 8.3pt; line-height: 1.3; color: #1f2937; }
+.about-text p { font-size: 8.2pt; line-height: 1.28; color: #1f2937; }
 .about-text p:first-child { font-size: 8.3pt; color: #1f2937; }
 .about-text p:last-child { border-left: 2px solid #0a7366; padding-left: 2.5mm; break-inside: avoid; }
 .about-text p + p { margin-top: 1mm; }
@@ -160,18 +160,24 @@ main#main > #contact { grid-column: 2; }
 .contact-card .section-title { display: inline; margin-right: 2mm; }
 .contact-card .section-intro { display: inline; }
 .contact-card .eyebrow { justify-content: flex-start; }
-.contact-card .section-intro { margin: 0; max-width: none; font-size: 8.8pt; }
+.contact-card .section-intro { margin: 0; max-width: none; font-size: 8.2pt; }
 /* Print the contact URL since the button is hidden */
 .contact-card::after {
   content: "LinkedIn: linkedin.com/in/harry-lyle-868854328  ·  GitHub: github.com/harrylyle07  ·  harrylyle07.github.io";
   display: block;
+  position: static;
+  inset: auto;
+  opacity: 1;
+  z-index: auto;
+  background: none;
+  border-radius: 0;
   margin-top: 1mm;
   font-family: var(--font-mono);
   font-size: 7.6pt;
   color: #1f2937;
 }
 
-.site-footer { border-top: 1px solid #d4d4d8; padding: 0.8mm 0 0; margin-top: 0.5mm; font-size: 6.6pt; color: #4b5563; }
+.site-footer { display: none; } /* the contact line above already carries the URLs */
 .footer-links { display: none; }
 
 /* Project write-up pages */
