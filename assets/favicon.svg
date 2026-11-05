@@ -1,11 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2dd4bf"/>
-      <stop offset="1" stop-color="#60a5fa"/>
+      <stop offset="0" stop-color="#2ee6c5"/>
+      <stop offset="1" stop-color="#7b8cff"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="#0b1324"/>
-  <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="url(#g)" stroke-width="3"/>
-  <path fill="url(#g)" d="M18 15h9v13h10V15h9v34h-9V36H27v13h-9z"/>
+  <rect width="64" height="64" rx="15" fill="#0f1526"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="13.5" fill="none" stroke="url(#g)" stroke-width="2.5"/>
+  <g stroke="url(#g)" stroke-width="1.6" opacity="0.55" fill="none"><path d="M10 48L22 36M42 36L54 48M12 14L22 20M52 14L42 20"/></g>
+  <g fill="url(#g)" opacity="0.9"><circle cx="10" cy="48" r="2.2"/><circle cx="54" cy="48" r="2.2"/><circle cx="12" cy="14" r="2.2"/><circle cx="52" cy="14" r="2.2"/></g>
+  <path fill="url(#g)" d="M19 16h8.5v12.5h9V16H45v32h-8.5V35.5h-9V48H19z"/>
 </svg>
